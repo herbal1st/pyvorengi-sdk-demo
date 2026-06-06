@@ -1,0 +1,197 @@
+# voxels.yaml - Master Block Registry
+# To add a block: Add an entry here. No Python changes required.
+
+blocks:
+  - id: 0
+    name: "AIR"
+    solid: false
+    is_spawn: false
+    color: null
+
+  - id: 1
+    name: "GRASS_BLOCK"
+    solid: true
+    is_spawn: false
+    color: [85, 115, 55]
+    face_colors:
+      top:    [75, 145, 55]
+      bottom: [85, 70, 55]
+      north:  [85, 115, 55]
+      south:  [85, 115, 55]
+      east:   [85, 115, 55]
+      west:   [85, 115, 55]
+
+  - id: 2
+    name: "DIRT_BLOCK"
+    solid: true
+    is_spawn: false
+    color: [90, 60, 40]
+    face_colors:
+      top:    [110, 75, 50]
+      bottom: [70, 45, 30]
+      north:  [90, 60, 40]
+      south:  [90, 60, 40]
+      east:   [90, 60, 40]
+      west:   [90, 60, 40]
+
+  - id: 3
+    name: "STONE_BLOCK"
+    solid: true
+    is_spawn: false
+    color: [100, 100, 100]
+    face_colors:
+      top:    [130, 130, 130]
+      bottom: [70, 70, 70]
+      north:  [100, 100, 100]
+      south:  [100, 100, 100]
+      east:   [100, 100, 100]
+      west:   [100, 100, 100]
+
+  - id: 4
+    name: "BEDROCK_BLOCK"
+    solid: true
+    is_spawn: false
+    color: [50, 50, 50]
+    face_colors:
+      top:    [70, 70, 70]
+      bottom: [30, 30, 30]
+      north:  [50, 50, 50]
+      south:  [50, 50, 50]
+      east:   [50, 50, 50]
+      west:   [50, 50, 50]
+
+  - id: 5
+    name: "WATER_BLOCK"
+    solid: true
+    is_spawn: false
+    color: [30, 100, 200]
+    face_colors:
+      top:    [50, 130, 240]
+      bottom: [20, 70, 150]
+      north:  [30, 100, 200]
+      south:  [30, 100, 200]
+      east:   [30, 100, 200]
+      west:   [30, 100, 200]
+
+  - id: 6
+    name: "ICE_BLOCK"
+    solid: true
+    is_spawn: false
+    color: [160, 210, 255]
+    face_colors:
+      top:    [200, 230, 255]
+      bottom: [120, 180, 230]
+      north:  [160, 210, 255]
+      south:  [160, 210, 255]
+      east:   [160, 210, 255]
+      west:   [160, 210, 255]
+
+  - id: 7
+    name: "SNOW_BLOCK"
+    solid: true
+    is_spawn: false
+    color: [240, 240, 240]
+    face_colors:
+      top:    [255, 255, 255]
+      bottom: [220, 220, 220]
+      north:  [240, 240, 240]
+      south:  [240, 240, 240]
+      east:   [240, 240, 240]
+      west:   [240, 240, 240]
+
+  - id: 8
+    name: "SAND_BLOCK"
+    solid: true
+    is_spawn: false
+    color: [220, 190, 130]
+    face_colors:
+      top:    [245, 220, 160]
+      bottom: [180, 150, 100]
+      north:  [220, 190, 130]
+      south:  [220, 190, 130]
+      east:   [220, 190, 130]
+      west:   [220, 190, 130]
+
+  - id: 9
+    name: "LAVA_BLOCK"
+    solid: true
+    is_spawn: false
+    color: [255, 100, 0]
+    face_colors:
+      top:    [255, 140, 0]
+      bottom: [200, 60, 0]
+      north:  [255, 100, 0]
+      south:  [255, 100, 0]
+      east:   [255, 100, 0]
+      west:   [255, 100, 0]
+
+  - id: 10
+    name: "OBSIDIAN_BLOCK"
+    solid: true
+    is_spawn: false
+    color: [30, 20, 45]
+    face_colors:
+      top:    [45, 30, 65]
+      bottom: [15, 10, 25]
+      north:  [30, 20, 45]
+      south:  [30, 20, 45]
+      east:   [30, 20, 45]
+      west:   [30, 20, 45]
+
+  - id: 11
+    name: "WOOD_BLOCK"
+    solid: true
+    is_spawn: false
+    color: [101, 67, 33]
+    face_colors:
+      top:    [193, 154, 107]
+      bottom: [193, 154, 107]
+      north:  [101, 67, 33]
+      south:  [101, 67, 33]
+      east:   [101, 67, 33]
+      west:   [101, 67, 33]
+
+  - id: 12
+    name: "GOLD_BLOCK"
+    solid: true
+    is_spawn: false
+    color: [255, 215, 0]
+    face_colors:
+      top:    [255, 235, 100]
+      bottom: [180, 150, 0]
+      north:  [255, 215, 0]
+      south:  [255, 215, 0]
+      east:   [255, 215, 0]
+      west:   [255, 215, 0]
+
+  - id: 13
+    name: "DIAMOND_BLOCK"
+    solid: true
+    is_spawn: false
+    color: [100, 230, 230]
+    face_colors:
+      top:    [160, 255, 255]
+      bottom: [60, 170, 170]
+      north:  [100, 230, 230]
+      south:  [100, 230, 230]
+      east:   [100, 230, 230]
+      west:   [100, 230, 230]
+
+  - id: 14
+    name: "EMERALD_BLOCK"
+    solid: true
+    is_spawn: false
+    color: [40, 200, 80]
+    face_colors:
+      top:    [100, 240, 140]
+      bottom: [20, 130, 40]
+      north:  [40, 200, 80]
+      south:  [40, 200, 80]
+      east:   [40, 200, 80]
+      west:   [40, 200, 80]
+
+  - id: 100
+    name: "SPAWNPOINT"
+    solid: false
+    is_spawn: true
+    color: null

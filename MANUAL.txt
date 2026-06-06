@@ -1,0 +1,173 @@
+____           __  __                                             
+/\  _`\        /\ \/\ \                                      __    
+\ \ \L\ \__  __\ \ \ \ \    ___   _ __    __    ___      __ /\_\   
+ \ \ ,__/\ \/\ \\ \ \ \ \  / __`\/\`'__\/'__`\/' _ `\  /'_ `\/\ \  
+  \ \ \/\ \ \_\ \\ \ \_/ \/\ \L\ \ \ \//\  __//\ \/\ \/\ \L\ \ \ \ 
+   \ \_\ \/`____ \\ `\___/\ \____/\ \_\\ \____\ \_\ \_\ \____ \ \_\
+    \/_/  `/___/> \`\/__/  \/___/  \/_/ \/____/\/_/\/_/\/___L\ \/_/
+             /\___/                                      /\____/   
+             \/__/                                       \_/__/    
+===============================================================================
+               PYVORENGI ENGINE DEMO - CONFIGURATION MANUAL
+===============================================================================
+
+[1.0 WORLD DIMENSIONS & PROC-GEN]
+-------------------------------------------------------------------------------
+CHUNK_SIZE                    : Horizontal size of each square voxel chunk.
+                                Metric: blocks.
+
+MAP_DEPTH                     : Total vertical voxel coordinate limit.
+                                Metric: blocks.
+
+WORLD_SEED                    : Integer seed for deterministic generation.
+
+USE_PROCEDURAL                : Boolean switch enabling noise-based generation.
+                                Utility: Set False to load from static map.
+
+GLOBAL_MAP_NAME               : Filename of the compiled static voxel map.
+
+ACTIVE_NOISE_TYPE             : Sourced procedural noise algorithm.
+                                Values: "PERLIN" or "SIMPLEX".
+
+NOISE_SCALE                   : Horizontal scale factor for noise.
+                                Utility: Lower values increase jaggedness.
+
+MAX_TERRAIN_HEIGHT_RATIO      : Vertical limit for procedural hill generation.
+                                Metric: ratio.
+
+
+[2.0 DISPLAY ENVELOPE & INTERFACE]
+-------------------------------------------------------------------------------
+SCREEN_RES                    : Target window dimensions for Pygame display.
+                                Metric: pixels.
+
+START_FULLSCREEN              : Toggle starting in fullscreen mode.
+
+FPS                           : Framerate limit for timing accumulation loop.
+                                Metric: hertz.
+
+FOV                           : Camera focal length divisor (field of view).
+                                Metric: pixels.
+
+UI_BG_ALPHA                   : Opacity factor for debug overlay backgrounds.
+                                Metric: 0-255.
+
+UI_REFRESH_RATE_MS            : Rate at which telemetry numbers are updated.
+                                Metric: milliseconds.
+
+
+[3.0 GRAPHICS, SHADING & ATMOSPHERICS]
+-------------------------------------------------------------------------------
+INITIAL_RENDER_DIST           : Initial block-radius for chunk visibility.
+                                Metric: blocks.
+
+NEAR_PLANE                    : Depth clipping plane in front of camera.
+                                Metric: blocks.
+
+CAM_VISUAL_OFFSET             : Buffer margin preventing near-plane clipping.
+                                Metric: blocks.
+
+MESH_EPSILON                  : Geometric overlap to prevent micro-seams.
+                                Metric: offset.
+
+SKY_COLOR                     : Background clear color for screen surface.
+                                Metric: RGB.
+
+FOG_MODE                      : Horizon distance fog blending formula.
+                                Values: "LINEAR" or "EXP".
+
+FOG_EXPONENT                  : Sharpness curve for exponential distance fog.
+
+INITIAL_FOG_DENSITY           : Baseline density multiplier for horizon fog.
+
+HEIGHT_FOG_RGB                : Visual tint applied to the valley haze volume.
+                                Metric: RGB.
+
+INITIAL_HEIGHT_FOG_MAX_Z      : Vertical limit for the flat valley haze surface.
+                                Metric: blocks.
+
+INITIAL_HEIGHT_FOG_DENSITY    : Baseline density multiplier for valley haze.
+
+INITIAL_HEIGHT_FOG_FADE       : Thickness of the haze transition zone.
+                                Metric: blocks.
+
+HAZE_WASHOUT_RGB              : Bleach target color for deep haze saturation.
+                                Metric: RGB.
+
+HAZE_WASHOUT_STRENGTH         : Max saturation bleach factor inside valley fog.
+                                Metric: ratio.
+
+USE_HEIGHT_SHADING            : Toggles darkening of voxels relative to depth.
+
+HEIGHT_SHADING_FACTOR         : Strength of the global depth shading.
+                                Metric: ratio.
+
+HEIGHT_SHADING_EXPONENT       : Contrast curve for vertical luma falloff.
+
+
+[4.0 PERFORMANCE & SECTOR OPTIMIZATION]
+-------------------------------------------------------------------------------
+SECTION_DIVS_XY               : Horizontal subdivisions per chunk for meshing.
+
+SECTION_DIVS_Z                : Vertical subdivisions per chunk for meshing.
+
+ALTITUDE_THROTTLE_HEIGHT_RATIO: Height ratio where render distance begins culling.
+                                Metric: ratio.
+
+ALTITUDE_THROTTLE_FACTOR      : Scaling multiplier applied to distance at height.
+                                Metric: ratio.
+
+
+[5.0 LIFECYCLE & LOADING Sweeps]
+-------------------------------------------------------------------------------
+LOAD_MARGIN                   : Boundary buffer padding around visibility limit.
+                                Metric: blocks.
+
+UNLOAD_MARGIN                 : Extended distance threshold for purging chunks.
+                                Metric: blocks.
+
+FRUSTUM_MARGIN                : Horizontal multiplier for view culling width.
+
+SAFETY_RADIUS                 : Spawn loading radius evaluated on Frame 1.
+                                Metric: blocks.
+
+MOVEMENT_UPDATE_THRESHOLD     : Spatial displacement required to trigger updates.
+                                Metric: blocks.
+
+ROTATION_UPDATE_THRESHOLD     : Angular rotation required to trigger updates.
+                                Metric: degrees.
+
+BOOTSTRAP_TIMEOUT             : Safety duration limit for startup sequences.
+                                Metric: seconds.
+
+
+[6.0 PHYSICAL KINEMATICS & COLLISION]
+-------------------------------------------------------------------------------
+MOVE_SPEED                    : Translational speed applied during physics step.
+                                Metric: blocks per frame.
+
+VERTICAL_MOVE_COOLDOWN        : Dynamic throttle for PGUP/PGDN vertical steps.
+                                Metric: milliseconds.
+
+MOUSE_SENSITIVITY             : Speed coefficient for mouse-aim rotation.
+
+PITCH_LIMIT                   : Max vertical looking limit (up and down).
+                                Metric: radians.
+
+PLAYER_HEIGHT                 : Altitude of camera relative to player feet.
+                                Metric: blocks.
+
+COLLISION_RADIUS              : Cylindrical width for entity hitboxes.
+                                Metric: blocks.
+
+
+[7.0 DATA INTEGRITY & PERSISTENCE]
+-------------------------------------------------------------------------------
+MAP_VERSION                   : Compatibility tag for saved world files.
+                                Utility: Prevents loading outdated maps.
+
+HEADER_PREFIX                 : Metadata prefix code used for verification.
+
+FORCE_FRESH_WORLD             : Clear save caches on engine launch if True.
+
+===============================================================================
