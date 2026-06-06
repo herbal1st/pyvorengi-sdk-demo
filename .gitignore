@@ -137,7 +137,7 @@ env.bak/
 venv.bak/
 
 # --- Project Specific Ignores ---
-saves/
+saves/**/*
 
 # Spyder project settings
 .spyderproject

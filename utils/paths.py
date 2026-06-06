@@ -32,7 +32,7 @@ def get_map_path(filename: str) -> Path:
 
 def check_environment() -> None:
     """
-    Validates and ensures critical folder structures exist.
+    Validates and creates critical engine folder structures if missing.
     """
     required_dirs: list[Path] = [
         PROJECT_ROOT / "data",
@@ -44,5 +44,10 @@ def check_environment() -> None:
         if directory.exists():
             continue
             
-        print(f"[Critical] Environment Error: Missing folder {directory}")
-        sys.exit(1)
+        try:
+            # Lazy creation of missing system directories
+            directory.mkdir(parents=True, exist_ok=True)
+            print(f"[Environment] Created missing directory: {directory}")
+        except OSError as error:
+            print(f"[Critical] Environment Error: {error}")
+            sys.exit(1)
