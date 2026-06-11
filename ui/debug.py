@@ -24,13 +24,17 @@ class DebugView:
         """
         Initializes fonts and pre-renders the static legend surface.
         """
-        from settings import settings
-
         self.screen: pygame.Surface = screen
         self._padding: Final[int] = 10
         self._line_h: Final[int] = 22
         self._bg_alpha: int = settings.UI_BG_ALPHA
         self._panel_gap: Final[int] = 8
+
+        # Graph Dimensions & Coordinates
+        self._gw: Final[int] = 350 # pixels
+        self._gh: Final[int] = 90  # pixels
+        self._gx: int = 5          # pixels
+        self._gy: int = self.screen.get_height() - 100 # pixels
 
         self.font: pygame.font.Font = pygame.font.SysFont(
             "monospace", 18, bold=True
@@ -112,25 +116,53 @@ class DebugView:
         """
         Constructs the static control legend panel.
         """
+        # Dynamic extraction of movement keys
+        move_keys: str = self._get_movement_legend()
+        elev_keys: str = self._get_elevation_legend()
+
         lines: List[str] = [""] * 8
-        lines[1] = "MOVE: W/A/S/D | ARROWS"
-        lines[2] = "ELEV: PGUP | PGDN"
-        lines[3] = f"QUIT: {self._get_keys(keymap.QUIT_APP)}"
-        lines[4] = f"FOG:  {self._get_keys(keymap.TOGGLE_FOG_MODE)}"
-        lines[5] = f"FS:   {self._get_keys(keymap.TOGGLE_FULLSCREEN)}"
-        lines[6] = f"DBUG: {self._get_keys(keymap.TOGGLE_DEBUG)}"
-        lines[7] = f"PAUS: {self._get_keys(keymap.TOGGLE_PAUSE)}"
+        lines[1] = f"MOVE: {move_keys}"
+        lines[2] = f"ELEV: {elev_keys}"
+        lines[3] = f"QUIT: {self._get_key_name(keymap.QUIT_APP)}"
+        lines[4] = f"FOG:  {self._get_key_name(keymap.TOGGLE_FOG_MODE)}"
+        lines[5] = f"FS:   {self._get_key_name(keymap.TOGGLE_FULLSCREEN)}"
+        lines[6] = f"DBUG: {self._get_key_name(keymap.TOGGLE_DEBUG)}"
+        lines[7] = f"PAUS: {self._get_key_name(keymap.TOGGLE_PAUSE)}"
 
         return self._create_panel_texture(lines)
 
-    def _get_keys(self, act_pos: str, act_neg: Optional[str] = None) -> str:
+    def _get_movement_legend(self) -> str:
         """
-        Extracts and formats key names from the logic keymap.
+        Heuristic to identify primary movement keys from keymap.
         """
-        def _n(a: str) -> str:
-            k = keymap.BINDINGS.get(a, [])
-            return pygame.key.name(k[0]).upper() if k else "?"
-        return f"{_n(act_pos)} | {_n(act_neg)}" if act_neg else _n(act_pos)
+        # Collect first key from each horizontal movement action
+        actions = [
+            keymap.MOVE_FORWARD, keymap.MOVE_LEFT, 
+            keymap.MOVE_BACKWARD, keymap.MOVE_RIGHT
+        ]
+        keys = []
+        for a in actions:
+            if bound := keymap.BINDINGS.get(a):
+                keys.append(pygame.key.name(bound[0]).upper())
+        
+        return "/".join(dict.fromkeys(keys))
+
+    def _get_elevation_legend(self) -> str:
+        """
+        Identifies primary keys for vertical movement.
+        """
+        up = keymap.BINDINGS.get(keymap.MOVE_UP, [])
+        dn = keymap.BINDINGS.get(keymap.MOVE_DOWN, [])
+        u_name = pygame.key.name(up[0]).upper() if up else "?"
+        d_name = pygame.key.name(dn[0]).upper() if dn else "?"
+        return f"{u_name} | {d_name}"
+
+    def _get_key_name(self, action: str) -> str:
+        """
+        Extracts the primary hardware key name for a logical action.
+        """
+        bound: List[int] = keymap.BINDINGS.get(action, [])
+        return pygame.key.name(bound[0]).upper() if bound else "?"
 
     def _create_panel_texture(self, lines: List[str]) -> pygame.Surface:
         """
@@ -161,30 +193,44 @@ class DebugView:
 
     def _draw_graph(self, ms: float) -> None:
         """
-        Renders the latency graph with alpha blending.
+        Renders the latency graph using cached coordinates.
         """
         self.history.append(ms)
         if len(self.history) < 2:
             return
 
-        xb, yb = 5, self.screen.get_height() - 100
-        gw, gh = 350, 90
-
-        bg = pygame.Surface((gw, gh), pygame.SRCALPHA)
+        # Draw background using cached _gx, _gy, _gw, _gh
+        bg = pygame.Surface((self._gw, self._gh), pygame.SRCALPHA)
         bg.fill((20, 20, 20, self._bg_alpha))
-        self.screen.blit(bg, (xb, yb))
-        pygame.draw.rect(self.screen, (100, 100, 100), (xb, yb, gw, gh), 1)
+        self.screen.blit(bg, (self._gx, self._gy))
+        pygame.draw.rect(
+            self.screen, (100, 100, 100), 
+            (self._gx, self._gy, self._gw, self._gh), 1
+        )
 
-        for m, c in [(16.6, (0, 180, 0)), (33.3, (180, 180, 0))]:
-            y = yb + gh - int((m / 60.0) * gh)
-            pygame.draw.line(self.screen, c, (xb, y), (xb + gw, y))
+        target_ms: float = 1000.0 / settings.FPS
+        max_ms: float = target_ms * 3.0
 
-        pts = [
-            (xb + i, yb + gh - int((min(m, 60) / 60) * gh)) 
-            for i, m in enumerate(self.history)
+        guides: List[Tuple[float, Tuple[int, int, int]]] = [
+            (target_ms, (0, 180, 0)),
+            (target_ms * 2, (180, 180, 0))
         ]
+
+        for limit, color in guides:
+            y_pos: int = self._gy + self._gh - int((limit / max_ms) * self._gh)
+            pygame.draw.line(
+                self.screen, color, 
+                (self._gx, y_pos), (self._gx + self._gw, y_pos)
+            )
+
+        pts: List[Tuple[int, int]] = []
+        for i, val in enumerate(self.history):
+            clv: float = min(val, max_ms)
+            py: int = self._gy + self._gh - int((clv / max_ms) * self._gh)
+            pts.append((self._gx + i, py))
+
         pygame.draw.lines(self.screen, (255, 80, 80), False, pts, 1)
 
         pk_txt = f"Peak: {max(self.history):.1f}ms"
         pk_img = self.font.render(pk_txt, True, (255, 255, 180))
-        self.screen.blit(pk_img, (xb + 5, yb + 2))
+        self.screen.blit(pk_img, (self._gx + 5, self._gy + 2))

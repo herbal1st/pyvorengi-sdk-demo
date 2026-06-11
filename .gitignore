@@ -1,3 +1,9 @@
+# --- Project Specific Ignores ---
+saves/**/*
+pic_imports/*
+!pic_imports/ship_33x33.png
+!pic_imports/ufo_33x33.png
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -135,9 +141,6 @@ venv/
 ENV/
 env.bak/
 venv.bak/
-
-# --- Project Specific Ignores ---
-saves/**/*
 
 # Spyder project settings
 .spyderproject

@@ -190,6 +190,67 @@ blocks:
       east:   [40, 200, 80]
       west:   [40, 200, 80]
 
+  # --- Voxel-Forge Palette: Grayscale (IDs 15-19) ---
+  - {id: 15, name: "PAL_BLACK",  solid: true, color: [10, 10, 10]}
+  - {id: 16, name: "PAL_D_GRAY", solid: true, color: [60, 60, 60]}
+  - {id: 17, name: "PAL_GRAY",   solid: true, color: [120, 120, 120]}
+  - {id: 18, name: "PAL_L_GRAY", solid: true, color: [180, 180, 180]}
+  - {id: 19, name: "PAL_WHITE",  solid: true, color: [250, 250, 250]}
+
+  # --- Voxel-Forge Palette: Dark (IDs 20-31) ---
+  - {id: 20, name: "P_RED_D",     solid: true, color: [130, 0, 0]}
+  - {id: 21, name: "P_ORANGE_D",  solid: true, color: [130, 65, 0]}
+  - {id: 22, name: "P_YELLOW_D",  solid: true, color: [130, 130, 0]}
+  - {id: 23, name: "P_CHARTRE_D", solid: true, color: [65, 130, 0]}
+  - {id: 24, name: "P_GREEN_D",   solid: true, color: [0, 130, 0]}
+  - {id: 25, name: "P_SPRING_D",  solid: true, color: [0, 130, 65]}
+  - {id: 26, name: "P_CYAN_D",    solid: true, color: [0, 130, 130]}
+  - {id: 27, name: "P_AZURE_D",   solid: true, color: [0, 65, 130]}
+  - {id: 28, name: "P_BLUE_D",    solid: true, color: [0, 0, 130]}
+  - {id: 29, name: "P_VIOLET_D",  solid: true, color: [65, 0, 130]}
+  - {id: 30, name: "P_MAGENTA_D", solid: true, color: [130, 0, 130]}
+  - {id: 31, name: "P_ROSE_D",    solid: true, color: [130, 0, 65]}
+
+  # --- Voxel-Forge Palette: Normal (IDs 32-43) ---
+  - {id: 32, name: "P_RED_N",     solid: true, color: [255, 0, 0]}
+  - {id: 33, name: "P_ORANGE_N",  solid: true, color: [255, 127, 0]}
+  - {id: 34, name: "P_YELLOW_N",  solid: true, color: [255, 255, 0]}
+  - {id: 35, name: "P_CHARTRE_N", solid: true, color: [127, 255, 0]}
+  - {id: 36, name: "P_GREEN_N",   solid: true, color: [0, 255, 0]}
+  - {id: 37, name: "P_SPRING_N",  solid: true, color: [0, 255, 127]}
+  - {id: 38, name: "P_CYAN_N",    solid: true, color: [0, 255, 255]}
+  - {id: 39, name: "P_AZURE_N",   solid: true, color: [0, 127, 255]}
+  - {id: 40, name: "P_BLUE_N",    solid: true, color: [0, 0, 255]}
+  - {id: 41, name: "P_VIOLET_N",  solid: true, color: [127, 0, 255]}
+  - {id: 42, name: "P_MAGENTA_N", solid: true, color: [255, 0, 255]}
+  - {id: 43, name: "P_ROSE_N",    solid: true, color: [255, 0, 127]}
+
+  # --- Voxel-Forge Palette: Bright (IDs 44-55) ---
+  - {id: 44, name: "P_RED_B",     solid: true, color: [255, 100, 100]}
+  - {id: 45, name: "P_ORANGE_B",  solid: true, color: [255, 180, 100]}
+  - {id: 46, name: "P_YELLOW_B",  solid: true, color: [255, 255, 150]}
+  - {id: 47, name: "P_CHARTRE_B", solid: true, color: [180, 255, 100]}
+  - {id: 48, name: "P_GREEN_B",   solid: true, color: [100, 255, 100]}
+  - {id: 49, name: "P_SPRING_B",  solid: true, color: [100, 255, 180]}
+  - {id: 50, name: "P_CYAN_B",    solid: true, color: [150, 255, 255]}
+  - {id: 51, name: "P_AZURE_B",   solid: true, color: [100, 180, 255]}
+  - {id: 52, name: "P_BLUE_B",    solid: true, color: [100, 100, 255]}
+  - {id: 53, name: "P_VIOLET_B",  solid: true, color: [180, 100, 255]}
+  - {id: 54, name: "P_MAGENTA_B", solid: true, color: [255, 100, 255]}
+  - {id: 55, name: "P_ROSE_B",    solid: true, color: [255, 100, 180]}
+
+  - id: 99
+    name: "DEBUG_BLOCK"
+    solid: true
+    color: [100, 230, 230]
+    face_colors:
+      top:    [225, 225, 225] # light gray
+      bottom: [0, 0, 0]       # black
+      north:  [255, 0, 255]   # magenta
+      south:  [0, 255, 0]     # green
+      east:   [0, 0, 255]     # blue
+      west:   [255, 0, 0]     # red
+
   - id: 100
     name: "SPAWNPOINT"
     solid: false

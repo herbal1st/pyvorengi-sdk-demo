@@ -11,163 +11,255 @@ ____           __  __
                PYVORENGI ENGINE DEMO - CONFIGURATION MANUAL
 ===============================================================================
 
-[1.0 WORLD DIMENSIONS & PROC-GEN]
+[1.0 DATA PERSISTENCE & DATA INTEGRITY]
 -------------------------------------------------------------------------------
-CHUNK_SIZE                    : Horizontal size of each square voxel chunk.
-                                Metric: blocks.
+MAP_VERSION                     : String. Compatibility tag for saved world 
+                                  files. Prevent loading older files.
+                                  Metric: version.
 
-MAP_DEPTH                     : Total vertical voxel coordinate limit.
-                                Metric: blocks.
+HEADER_PREFIX                   : String. Verification prefix appended to save 
+                                  headers.
+                                  Metric: string.
 
-WORLD_SEED                    : Integer seed for deterministic generation.
-
-USE_PROCEDURAL                : Boolean switch enabling noise-based generation.
-                                Utility: Set False to load from static map.
-
-GLOBAL_MAP_NAME               : Filename of the compiled static voxel map.
-
-ACTIVE_NOISE_TYPE             : Sourced procedural noise algorithm.
-                                Values: "PERLIN" or "SIMPLEX".
-
-NOISE_SCALE                   : Horizontal scale factor for noise.
-                                Utility: Lower values increase jaggedness.
-
-MAX_TERRAIN_HEIGHT_RATIO      : Vertical limit for procedural hill generation.
-                                Metric: ratio.
+FORCE_FRESH_WORLD               : Boolean. Clears all cached save directories 
+                                  upon engine startup when set to True.
+                                  Metric: bool.
 
 
-[2.0 DISPLAY ENVELOPE & INTERFACE]
+[2.0 HARDWARE, WINDOWING & TIME-ACCUMULATION]
 -------------------------------------------------------------------------------
-SCREEN_RES                    : Target window dimensions for Pygame display.
-                                Metric: pixels.
+SCREEN_RES                      : Tuple of Integers. Target resolution for the 
+                                  engine window.
+                                  Metric: pixels (Width, Height).
 
-START_FULLSCREEN              : Toggle starting in fullscreen mode.
+START_FULLSCREEN                : Boolean. Forces the engine to initialize 
+                                  in full-screen mode when True.
+                                  Metric: bool.
 
-FPS                           : Framerate limit for timing accumulation loop.
-                                Metric: hertz.
+FPS                             : Integer. Maximum framerate limit for timing 
+                                  accumulation loop.
+                                  Metric: hertz.
 
-FOV                           : Camera focal length divisor (field of view).
-                                Metric: pixels.
+FOV                             : Integer. Focal length multiplier that 
+                                  adjusts perspective scale.
+                                  Metric: ratio.
 
-UI_BG_ALPHA                   : Opacity factor for debug overlay backgrounds.
-                                Metric: 0-255.
-
-UI_REFRESH_RATE_MS            : Rate at which telemetry numbers are updated.
-                                Metric: milliseconds.
+WINDOW_ICON_NAME                : String. Filename of the application icon 
+                                  located in the project root.
+                                  Metric: filename.
 
 
-[3.0 GRAPHICS, SHADING & ATMOSPHERICS]
+[3.0 USER INTERFACE & DATA TELEMETRY]
 -------------------------------------------------------------------------------
-INITIAL_RENDER_DIST           : Initial block-radius for chunk visibility.
-                                Metric: blocks.
+UI_BG_ALPHA                     : Integer. Opacity of debug panel backgrounds.
+                                  Range: 0 (clear) to 255 (opaque).
+                                  Metric: opacity.
 
-NEAR_PLANE                    : Depth clipping plane in front of camera.
-                                Metric: blocks.
-
-CAM_VISUAL_OFFSET             : Buffer margin preventing near-plane clipping.
-                                Metric: blocks.
-
-MESH_EPSILON                  : Geometric overlap to prevent micro-seams.
-                                Metric: offset.
-
-SKY_COLOR                     : Background clear color for screen surface.
-                                Metric: RGB.
-
-FOG_MODE                      : Horizon distance fog blending formula.
-                                Values: "LINEAR" or "EXP".
-
-FOG_EXPONENT                  : Sharpness curve for exponential distance fog.
-
-INITIAL_FOG_DENSITY           : Baseline density multiplier for horizon fog.
-
-HEIGHT_FOG_RGB                : Visual tint applied to the valley haze volume.
-                                Metric: RGB.
-
-INITIAL_HEIGHT_FOG_MAX_Z      : Vertical limit for the flat valley haze surface.
-                                Metric: blocks.
-
-INITIAL_HEIGHT_FOG_DENSITY    : Baseline density multiplier for valley haze.
-
-INITIAL_HEIGHT_FOG_FADE       : Thickness of the haze transition zone.
-                                Metric: blocks.
-
-HAZE_WASHOUT_RGB              : Bleach target color for deep haze saturation.
-                                Metric: RGB.
-
-HAZE_WASHOUT_STRENGTH         : Max saturation bleach factor inside valley fog.
-                                Metric: ratio.
-
-USE_HEIGHT_SHADING            : Toggles darkening of voxels relative to depth.
-
-HEIGHT_SHADING_FACTOR         : Strength of the global depth shading.
-                                Metric: ratio.
-
-HEIGHT_SHADING_EXPONENT       : Contrast curve for vertical luma falloff.
+UI_REFRESH_RATE_MS              : Integer. Delay between debug panel updates.
+                                  Lower values increase CPU overhead.
+                                  Metric: milliseconds.
 
 
-[4.0 PERFORMANCE & SECTOR OPTIMIZATION]
+[4.0 GRAPHICS, SHADING & ATMOSPHERICS]
 -------------------------------------------------------------------------------
-SECTION_DIVS_XY               : Horizontal subdivisions per chunk for meshing.
+INITIAL_RENDER_DIST             : Float. Radial load boundary for active 
+                                  chunks.
+                                  Metric: blocks.
 
-SECTION_DIVS_Z                : Vertical subdivisions per chunk for meshing.
+NEAR_PLANE                      : Float. Near clipping plane in front of 
+                                  camera. Blocks closer than this are culled.
+                                  Metric: blocks.
 
-ALTITUDE_THROTTLE_HEIGHT_RATIO: Height ratio where render distance begins culling.
-                                Metric: ratio.
+CAM_VISUAL_OFFSET               : Float. Buffer distance preventing camera 
+                                  clipping into wall geometry.
+                                  Metric: blocks.
 
-ALTITUDE_THROTTLE_FACTOR      : Scaling multiplier applied to distance at height.
-                                Metric: ratio.
+MESH_EPSILON                    : Float. Small geometric overlap preventing 
+                                  micro-seams between touching faces.
+                                  Metric: scale.
+
+FRUSTUM_MARGIN                  : Float. Horizontal safety multiplier for view 
+                                  culling width.
+                                  Metric: ratio.
+
+ALTITUDE_THROTTLE_HEIGHT_RATIO  : Float. Height threshold ratio where distance 
+                                  culling begins throttling.
+                                  Metric: ratio.
+
+ALTITUDE_THROTTLE_FACTOR        : Float. Radial distance multiplier applied 
+                                  at height to reduce CPU overhead.
+                                  Metric: scale.
 
 
-[5.0 LIFECYCLE & LOADING Sweeps]
+[5.0 PHYSICS, KINEMATICS & PLAYER BOUNDS]
 -------------------------------------------------------------------------------
-LOAD_MARGIN                   : Boundary buffer padding around visibility limit.
-                                Metric: blocks.
+MOVE_SPEED                      : Float. Base translational speed applied 
+                                  per physics step.
+                                  Metric: blocks.
 
-UNLOAD_MARGIN                 : Extended distance threshold for purging chunks.
-                                Metric: blocks.
+VERTICAL_MOVE_COOLDOWN          : Integer. Key-repeat throttle for PGUP/PGDN 
+                                  vertical steps.
+                                  Metric: milliseconds.
 
-FRUSTUM_MARGIN                : Horizontal multiplier for view culling width.
+MOUSE_SENSITIVITY               : Float. Speed coefficient for mouse rotation.
+                                  Metric: scale.
 
-SAFETY_RADIUS                 : Spawn loading radius evaluated on Frame 1.
-                                Metric: blocks.
+PITCH_LIMIT                     : Float. Vertical pitch angle limit, 
+                                  preventing camera flipping upside down.
+                                  Metric: radians.
 
-MOVEMENT_UPDATE_THRESHOLD     : Spatial displacement required to trigger updates.
-                                Metric: blocks.
+PLAYER_HEIGHT                   : Float. Height offset of camera relative to 
+                                  the player's coordinate base.
+                                  Metric: blocks.
 
-ROTATION_UPDATE_THRESHOLD     : Angular rotation required to trigger updates.
-                                Metric: degrees.
-
-BOOTSTRAP_TIMEOUT             : Safety duration limit for startup sequences.
-                                Metric: seconds.
+COLLISION_RADIUS                : Float. Width of cylinder used for horizontal 
+                                  collision checks.
+                                  Metric: blocks.
 
 
-[6.0 PHYSICAL KINEMATICS & COLLISION]
+[6.0 WORLD DIMENSIONS & SECTOR DIVISION]
 -------------------------------------------------------------------------------
-MOVE_SPEED                    : Translational speed applied during physics step.
-                                Metric: blocks per frame.
+MAP_DEPTH                       : Integer. Maximum vertical map boundary.
+                                  Metric: blocks.
 
-VERTICAL_MOVE_COOLDOWN        : Dynamic throttle for PGUP/PGDN vertical steps.
-                                Metric: milliseconds.
+CHUNK_SIZE                      : Integer. Horizontal dimension of square 
+                                  chunks.
+                                  Metric: blocks.
 
-MOUSE_SENSITIVITY             : Speed coefficient for mouse-aim rotation.
+SECTION_DIVS_XY                 : Integer. Horizontal section cuts per chunk 
+                                  for spatial partitioning.
+                                  Metric: count.
 
-PITCH_LIMIT                   : Max vertical looking limit (up and down).
-                                Metric: radians.
-
-PLAYER_HEIGHT                 : Altitude of camera relative to player feet.
-                                Metric: blocks.
-
-COLLISION_RADIUS              : Cylindrical width for entity hitboxes.
-                                Metric: blocks.
+SECTION_DIVS_Z                  : Integer. Vertical section cuts per chunk 
+                                  for spatial partitioning.
+                                  Metric: count.
 
 
-[7.0 DATA INTEGRITY & PERSISTENCE]
+[7.0 LIFECYCLE MANAGEMENT & LOAD SWEEPS]
 -------------------------------------------------------------------------------
-MAP_VERSION                   : Compatibility tag for saved world files.
-                                Utility: Prevents loading outdated maps.
+LOAD_MARGIN                     : Float. Buffer padding beyond render distance 
+                                  where loading is triggered.
+                                  Metric: blocks.
 
-HEADER_PREFIX                 : Metadata prefix code used for verification.
+UNLOAD_MARGIN                   : Float. Distance threshold where inactive 
+                                  chunks are purged from memory.
+                                  Metric: blocks.
 
-FORCE_FRESH_WORLD             : Clear save caches on engine launch if True.
+SAFETY_RADIUS                   : Float. Minimum radius of chunks that must 
+                                  load on Frame 1 before gameplay starts.
+                                  Metric: blocks.
+
+MOVEMENT_UPDATE_THRESHOLD       : Float. Horizontal displacement required to 
+                                  trigger a world load sweep.
+                                  Metric: blocks.
+
+ROTATION_UPDATE_THRESHOLD       : Float. Angular rotation required to trigger 
+                                  frustum-culling updates.
+                                  Metric: degrees.
+
+BOOTSTRAP_TIMEOUT               : Float. Absolute loading duration threshold 
+                                  for Frame 1 before gameplay starts anyway.
+                                  Metric: seconds.
+
+ANGULAR_BUFFER_DEG              : Float. Angle buffer added to visibility 
+                                  sweeps to cover rotation frames.
+                                  Metric: degrees.
+
+ANGULAR_BUFFER_RAD              : Float. Radians equivalent of angular buffer.
+                                  Metric: radians.
+
+
+[8.0 PROCEDURAL GENERATION & NOISE]
+-------------------------------------------------------------------------------
+USE_PROCEDURAL                  : Boolean. Enables seed-based terrain. 
+                                  Set False to load pre-authored map files.
+                                  Metric: bool.
+
+GLOBAL_MAP_NAME                 : String. Filename of static map archive to 
+                                  load when USE_PROCEDURAL is False.
+                                  Metric: string.
+
+WORLD_SEED                      : Integer. Numeric seed used to generate the 
+                                  random noise coordinate maps.
+                                  Metric: seed.
+
+NOISE_TYPE_PERLIN               : String. Constant identifier for Perlin noise.
+                                  Metric: type.
+
+NOISE_TYPE_SIMPLEX              : String. Constant identifier for Simplex noise.
+                                  Metric: type.
+
+ACTIVE_NOISE_TYPE               : String. Active noise generator algorithm.
+                                  Metric: type.
+
+NOISE_SCALE                     : Float. Horizontal scale factor for noise.
+                                  Higher values stretch features out.
+                                  Metric: scale.
+
+MAX_TERRAIN_HEIGHT_RATIO        : Float. Vertical height modifier for 
+                                  procedural hill structures.
+                                  Metric: ratio.
+
+
+[9.0 FLAT LIGHTING, INTENSITIES & COLOR CHANNELS]
+-------------------------------------------------------------------------------
+SKY_COLOR                       : Tuple of Integers. Clear color of the sky.
+                                  Metric: RGB (0-255).
+
+USE_HEIGHT_SHADING              : Boolean. Enables shading falloff where 
+                                  deeper elevations are shaded darker.
+                                  Metric: bool.
+
+HEIGHT_SHADING_FACTOR           : Float. Intensity coefficient for deep depth 
+                                  darkening.
+                                  Metric: scale.
+
+HEIGHT_SHADING_EXPONENT         : Float. Contrast curve sharpness for luma 
+                                  darkening.
+                                  Metric: exponent.
+
+LIGHT_MAP                       : Dictionary of Normal-to-Float. Static 
+                                  lighting scale applied to face normals.
+                                  Metric: shading multipliers.
+
+
+[10.0 VOLUMETRIC VALLEY HAZE & EXPONENTIAL FOG]
+-------------------------------------------------------------------------------
+FOG_MODE_LINEAR                 : String. Constant identifier for linear fog.
+                                  Metric: mode.
+
+FOG_MODE_EXP                    : String. Constant identifier for exponential 
+                                  fog.
+                                  Metric: mode.
+
+FOG_MODE                        : String. Current calculation model for fog.
+                                  Metric: mode.
+
+FOG_EXPONENT                    : Float. Sharpness curve for exponential fog.
+                                  Metric: exponent.
+
+INITIAL_FOG_DENSITY             : Float. Density multiplier for horizon fog.
+                                  Metric: density.
+
+HEIGHT_FOG_RGB                  : Tuple of Integers. Color of valley haze.
+                                  Metric: RGB (0-255).
+
+INITIAL_HEIGHT_FOG_MAX_Z        : Float. Ceiling limit for the valley haze.
+                                  Metric: blocks.
+
+INITIAL_HEIGHT_FOG_DENSITY      : Float. Density multiplier for valley haze.
+                                  Metric: density.
+
+INITIAL_HEIGHT_FOG_FADE         : Float. Thickness of haze blend transition 
+                                  zone.
+                                  Metric: blocks.
+
+HAZE_WASHOUT_RGB                : Tuple of Integers. Bleach color target for 
+                                  desaturating colors inside thick haze.
+                                  Metric: RGB (0-255).
+
+HAZE_WASHOUT_STRENGTH           : Float. Maximum saturation bleach factor 
+                                  inside heavy haze.
+                                  Metric: ratio.
 
 ===============================================================================

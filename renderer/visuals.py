@@ -1,5 +1,5 @@
 """
-Post-projection atmospheric and lighting effects.
+Optimized post-projection effects using in-place memory operations.
 """
 
 from typing import Final
@@ -22,22 +22,24 @@ def apply_height_shading(
     colors: NDArray[np.float32],
     z_centers: NDArray[np.float32],
     height_shading_factor: float
-) -> NDArray[np.float32]:
+) -> None:
     """
-    Darkens terrain based on depth from the map ceiling.
+    Darkens terrain based on depth from the map ceiling in-place.
     """
-    norm_depth: NDArray[np.float32] = np.clip(
-        (settings.MAP_DEPTH - z_centers) / settings.MAP_DEPTH, 
-        0.0, 1.0
-    )
-    
-    falloff: NDArray[np.float32] = (
-        norm_depth ** settings.HEIGHT_SHADING_EXPONENT
-    )
-    
-    darken: NDArray[np.float32] = falloff * height_shading_factor * 100.0
-    shaded: NDArray[np.float32] = colors - darken[:, np.newaxis]
-    return np.clip(shaded, 0, 255)
+    # Calculate normalized depth (0.0 to 1.0)
+    norm_depth: NDArray[np.float32] = (settings.MAP_DEPTH - z_centers)
+    norm_depth /= settings.MAP_DEPTH
+    np.clip(norm_depth, 0.0, 1.0, out=norm_depth)
+
+    # Apply exponential contrast curve
+    np.power(norm_depth, settings.HEIGHT_SHADING_EXPONENT, out=norm_depth)
+
+    # Calculate final darkening magnitude
+    norm_depth *= (height_shading_factor * 100.0)
+
+    # Apply to colors in-place
+    colors -= norm_depth[:, np.newaxis]
+    np.clip(colors, 0, 255, out=colors)
 
 
 def apply_height_fog(
@@ -46,31 +48,34 @@ def apply_height_fog(
     fog_density: float,
     fog_max_z: float,
     fog_fade: float
-) -> NDArray[np.float32]:
+) -> None:
     """
-    Simulates a dense flat atmospheric volume that thickens with depth.
+    Simulates a dense flat atmospheric volume via in-place blending.
     """
     if fog_density <= 0:
-        return colors
+        return
 
-    under_surface: NDArray[np.float32] = np.clip(
-        fog_max_z - z_centers, 0.0, None
-    )
-    submersion: NDArray[np.float32] = np.clip(
-        under_surface / max(0.1, fog_fade), 0.0, 1.0
-    )
-    
-    vis: NDArray[np.float32] = (1.0 - submersion) ** (fog_density * 4.0)
+    # Calculate submersion factor
+    submersion: NDArray[np.float32] = (fog_max_z - z_centers)
+    np.clip(submersion, 0.0, None, out=submersion)
+    submersion /= max(0.1, fog_fade)
+    np.clip(submersion, 0.0, 1.0, out=submersion)
+
+    # Determine visibility using power curve
+    vis: NDArray[np.float32] = (1.0 - submersion)
+    np.power(vis, (fog_density * 4.0), out=vis)
     vis_mask: NDArray[np.float32] = vis[:, np.newaxis]
 
+    # Desaturate colors inside fog (washout)
     washout: NDArray[np.float32] = vis_mask ** 2.0
     avg_lum: NDArray[np.float32] = np.mean(colors, axis=1)[:, np.newaxis]
-    
-    flat_colors: NDArray[np.float32] = (
-        (colors * washout) + (avg_lum * (1.0 - washout))
-    )
 
-    return (flat_colors * vis_mask) + (HEIGHT_FOG_RGB * (1.0 - vis_mask))
+    colors *= washout
+    colors += (avg_lum * (1.0 - washout))
+
+    # Final blend with height fog color
+    colors *= vis_mask
+    colors += (HEIGHT_FOG_RGB * (1.0 - vis_mask))
 
 
 def apply_fog_effect(
@@ -78,29 +83,32 @@ def apply_fog_effect(
     euclidean_distances: NDArray[np.float32],
     render_dist: float,
     fog_density: float
-) -> NDArray[np.float32]:
+) -> None:
     """
-    Blends voxel colors with the sky based on distance.
+    Blends voxel colors with the sky based on distance in-place.
     """
     if render_dist <= 0 or fog_density <= 0:
-        return colors
+        return
 
+    # Calculate distance ratio
     rel_dist: NDArray[np.float32] = euclidean_distances / render_dist
 
     if settings.FOG_MODE == settings.FOG_MODE_LINEAR:
-        visibility: NDArray[np.float32] = 1.0 - (rel_dist * fog_density)
+        vis: NDArray[np.float32] = 1.0 - (rel_dist * fog_density)
     else:
+        # Exponential falloff
         coeff: float = 1.5 * fog_density
-        falloff: NDArray[np.float32] = (
-            (rel_dist * coeff) ** settings.FOG_EXPONENT
-        )
-        visibility = np.exp(-falloff)
+        vis = (rel_dist * coeff)
+        np.power(vis, settings.FOG_EXPONENT, out=vis)
+        vis *= -1.0
+        np.exp(vis, out=vis)
 
-    vis_mask: NDArray[np.float32] = np.clip(
-        visibility, 0.0, 1.0
-    )[:, np.newaxis]
-    
-    return (colors * vis_mask) + (SKY_RGB * (1.0 - vis_mask))
+    np.clip(vis, 0.0, 1.0, out=vis)
+    v_mask: NDArray[np.float32] = vis[:, np.newaxis]
+
+    # In-place blend: (color * vis) + (sky * (1-vis))
+    colors *= v_mask
+    colors += (SKY_RGB * (1.0 - v_mask))
 
 
 def apply_visual_effects(
@@ -116,22 +124,21 @@ def apply_visual_effects(
     height_fog_fade: float
 ) -> NDArray[np.int32]:
     """
-    Orchestrates the visual post-processing pipeline.
+    Orchestrates the visual pipeline with minimal allocations.
     """
+    # Create the single working buffer for this frame's visual pass
     proc_colors: NDArray[np.float32] = colors.copy()
 
     if use_h_shading:
-        proc_colors = apply_height_shading(
-            proc_colors, z_centers, height_shading_factor
-        )
-        
-    proc_colors = apply_height_fog(
-        proc_colors, z_centers, 
+        apply_height_shading(proc_colors, z_centers, height_shading_factor)
+
+    apply_height_fog(
+        proc_colors, z_centers,
         height_fog_density, height_fog_max_z, height_fog_fade
     )
 
-    proc_colors = apply_fog_effect(
-        proc_colors, euclidean_dist, render_dist, fog_density
-    )
+    apply_fog_effect(proc_colors, euclidean_dist, render_dist, fog_density)
 
-    return np.clip(proc_colors, 0, 255).astype(np.int32)
+    # Final cast to integer for Pygame blitting
+    np.clip(proc_colors, 0, 255, out=proc_colors)
+    return proc_colors.astype(np.int32)

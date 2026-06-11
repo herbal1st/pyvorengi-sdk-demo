@@ -11,14 +11,14 @@ from typing import List, Final
 import numpy as np
 from numpy.typing import NDArray
 
-from map.registry import ID_AIR, VoxelRegistry
+from map.registry import ID_AIR, ID_OBSIDIAN, ID_SPAWN, VoxelRegistry
 from settings import settings
 
 # Presentation parameters for matrix structure
 SHELF_WIDTH: Final[int] = 5  # blocks
 SHELF_HEIGHT: Final[int] = 1  # blocks
-FLOOR_BLOCK_ID: Final[int] = 10  # blocks
-BASE_WIDTH: Final[int] = 16  # blocks
+FLOOR_BLOCK_ID: Final[int] = ID_OBSIDIAN  # block id
+BASE_WIDTH: Final[int] = settings.CHUNK_SIZE  # corridor width
 WALL_HEIGHT: Final[int] = 5  # blocks
 
 
@@ -33,7 +33,7 @@ def build_bookshelf_map(registry: VoxelRegistry) -> NDArray[np.uint8]:
     layer_blocks: List[int] = [
         b_id
         for b_id in registry._cache.keys()
-        if b_id not in (ID_AIR, 100)
+        if b_id not in (ID_AIR, ID_SPAWN)
     ]
 
     # Calculate map dimensions dynamically based on registry count
@@ -43,13 +43,13 @@ def build_bookshelf_map(registry: VoxelRegistry) -> NDArray[np.uint8]:
     map_width: int = BASE_WIDTH + (2 * border_pad)
     map_length: int = base_length + (2 * border_pad)
 
-    # Allocate map with Cartesian (X, Y, Z) ordering
+    # Allocate map with native memory layout (Z, Y, X) ordering
     map_data: NDArray[np.uint8] = np.zeros(
-        (map_width, map_length, depth), dtype=np.uint8
+        (depth, map_length, map_width), dtype=np.uint8
     )
 
     # 1. Fill Z = 0 with a solid platform floor
-    map_data[:, :, 0] = FLOOR_BLOCK_ID
+    map_data[0, :, :] = FLOOR_BLOCK_ID
 
     # 2. Build vertical plates within the padded inner region
     for i, block_id in enumerate(layer_blocks):
@@ -63,22 +63,25 @@ def build_bookshelf_map(registry: VoxelRegistry) -> NDArray[np.uint8]:
         z_start: int = 1
         z_end: int = 1 + SHELF_HEIGHT
 
-        map_data[x_start:x_end, y_pos, z_start:z_end] = block_id
+        # Indexed as [Z, Y, X]
+        map_data[z_start:z_end, y_pos, x_start:x_end] = block_id
 
     # 3. Add surrounding outer safety walls
     wall_z_end: int = 1 + int(WALL_HEIGHT)
     if wall_z_end > 1:
-        map_data[0, :, 1:wall_z_end] = FLOOR_BLOCK_ID
-        map_data[-1, :, 1:wall_z_end] = FLOOR_BLOCK_ID
-        map_data[:, 0, 1:wall_z_end] = FLOOR_BLOCK_ID
-        map_data[:, -1, 1:wall_z_end] = FLOOR_BLOCK_ID
+        map_data[1:wall_z_end, :, 0] = FLOOR_BLOCK_ID   # West wall
+        map_data[1:wall_z_end, :, -1] = FLOOR_BLOCK_ID  # East wall
+        map_data[1:wall_z_end, 0, :] = FLOOR_BLOCK_ID   # South wall
+        map_data[1:wall_z_end, -1, :] = FLOOR_BLOCK_ID  # North wall
 
-    # 4. Place SPAWNPOINT (ID 100)
-    # Calculated as (map_width - 1 - mid) to land exactly at (mid, mid)
-    # inside chunk (0, 0) after the loader reverses the horizontal X axis.
+    # 4. Place SPAWNPOINT on the launchpad-like center
     mid_index: int = settings.CHUNK_SIZE // 2
+    # Compensate for the pre-save flip so it lands exactly at mid_index
     target_spawn_x: int = map_width - 1 - mid_index
-    map_data[target_spawn_x, mid_index, 1] = 100
+    map_data[1, mid_index, target_spawn_x] = ID_SPAWN
+
+    # 5. Flip horizontally along the X-axis (dimension 2) to bake in winding
+    map_data = map_data[:, :, ::-1]
 
     return map_data
 

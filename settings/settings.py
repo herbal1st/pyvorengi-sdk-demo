@@ -14,7 +14,8 @@ FORCE_FRESH_WORLD: Final[bool] = True  # bool
 SCREEN_RES: Final[Tuple[int, int]] = (1440, 900)  # pixels
 START_FULLSCREEN: Final[bool] = False  # bool
 FPS: Final[int] = 30  # hertz
-FOV: Final[int] = 600  # pixels
+FOV: Final[int] = 600  # ratio
+WINDOW_ICON_NAME: Final[str] = "icon.png"  # filename
 
 # ------ User Interface ------
 UI_BG_ALPHA: Final[int] = 180  # opacity
@@ -30,11 +31,11 @@ ALTITUDE_THROTTLE_HEIGHT_RATIO: Final[float] = 0.5  # ratio
 ALTITUDE_THROTTLE_FACTOR: Final[float] = 0.85  # scale
 
 # ------ Physics & Movement ------
-MOVE_SPEED: Final[float] = 0.05  # blocks
+MOVE_SPEED: Final[float] = 0.075  # blocks
 VERTICAL_MOVE_COOLDOWN: Final[int] = 50  # ms
 MOUSE_SENSITIVITY: Final[float] = 0.003  # scale
 PITCH_LIMIT: Final[float] = 1.5  # radians
-PLAYER_HEIGHT: Final[float] = 0.75  # blocks
+PLAYER_HEIGHT: Final[float] = 1.75  # blocks
 COLLISION_RADIUS: Final[float] = 0.3  # blocks
 
 # ------ World Geometry ------
