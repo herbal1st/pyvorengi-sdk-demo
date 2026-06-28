@@ -57,7 +57,11 @@ class ChunkLifecycleManager:
             or bool(self.remesh_pool)
         )
 
-        if not (needs_work or self.world.remesh_requested or has_pending_tasks):
+        if not (
+            needs_work 
+            or self.world.remesh_requested 
+            or has_pending_tasks
+        ):
             camera.yaw_velocity = 0.0
             return
 
@@ -82,8 +86,10 @@ class ChunkLifecycleManager:
         self._trickle_remesh_pool(player.x, player.y)
 
         radius: float = r_dist + settings.LOAD_MARGIN
-        candidates: List[Tuple[int, int]] = self.brain.get_loading_candidates(
-            player.x, player.y, radius
+        candidates: List[Tuple[int, int]] = (
+            self.brain.get_loading_candidates(
+                player.x, player.y, radius
+            )
         )
         self._enqueue_candidates(candidates)
         self._purge_distant(player.x, player.y, r_dist + 50.0)
@@ -123,8 +129,19 @@ class ChunkLifecycleManager:
             coords = self.mesh_queue.pop(0)
             chunk: Optional[Chunk] = self.world.chunks.get(coords)
             if chunk:
+                cx, cy = coords
+                neighbors = {}
+                offsets = [
+                    (-1, 0), (1, 0), (0, -1), (0, 1),
+                    (-1, -1), (-1, 1), (1, -1), (1, 1)
+                ]
+                for dx, dy in offsets:
+                    nc = (cx + dx, cy + dy)
+                    if nc in self.world.chunks:
+                        neighbors[(dx, dy)] = self.world.chunks[nc].data
+
                 _, sections = workers.worker_mesh_chunk(
-                    coords[0], coords[1], chunk.data, ctx
+                    cx, cy, chunk.data, ctx, neighbors
                 )
                 chunk.sections = sections
                 chunk.is_meshed = True
@@ -143,14 +160,16 @@ class ChunkLifecycleManager:
         half: float = settings.CHUNK_SIZE / 2.0
 
         for coords, chunk in self.world.chunks.items():
-            if chunk.is_meshed or coords in self.mesh_queue:
+            if coords in self.mesh_queue:
                 continue
 
-            dx: float = (chunk.world_x + half) - px
-            dy: float = (chunk.world_y + half) - py
+            # Queue if the chunk is not meshed or if it has pending updates
+            if not chunk.is_meshed or chunk.needs_remesh:
+                dx: float = (chunk.world_x + half) - px
+                dy: float = (chunk.world_y + half) - py
 
-            if (dx ** 2 + dy ** 2) < l_sq:
-                self.mesh_queue.append(coords)
+                if (dx ** 2 + dy ** 2) < l_sq:
+                    self.mesh_queue.append(coords)
 
         self._sort_queue(self.mesh_queue, px, py)
 
@@ -166,7 +185,7 @@ class ChunkLifecycleManager:
                 chunk.needs_remesh = True
                 self.remesh_pool.append(coords)
 
-        self._sort_queue(self.remesh_pool, px, py)
+            self._sort_queue(self.remesh_pool, px, py)
 
     def _trickle_remesh_pool(self, px: float, py: float) -> None:
         """
@@ -233,7 +252,11 @@ class ChunkLifecycleManager:
                     data: NDArray[np.uint8] = provider.get_chunk_data(dx, dy)
                     self.world.chunks[(dx, dy)] = Chunk(dx, dy, data)
 
-    def update_circular(self, player: "Entity", renderer: "Renderer") -> None:
+    def update_circular(
+        self, 
+        player: "Entity", 
+        renderer: "Renderer"
+    ) -> None:
         """
         Triggers circular loading sweeps during bootstrapper phase.
         """

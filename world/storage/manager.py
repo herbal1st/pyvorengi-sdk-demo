@@ -3,7 +3,7 @@ Global manager for coordinate-based chunk access and voxel queries.
 """
 
 import math
-from typing import Dict, Optional, Tuple
+from typing import Dict, List, Optional, Tuple
 
 import numpy as np
 from numpy.typing import NDArray
@@ -22,13 +22,8 @@ class World:
         """
         Initializes the world dictionary and block registry.
         """
-        # Chunk map indexed by (cx, cy) grid coordinates
         self.chunks: Dict[Tuple[int, int], Chunk] = {}
-        
-        # Block property lookup
         self.registry: VoxelRegistry = VoxelRegistry()
-
-        # Flag indicating that meshes need recalculation
         self.remesh_requested: bool = False
 
     def request_remesh(self) -> None:
@@ -45,29 +40,87 @@ class World:
         iy: int = math.floor(y)
         iz: int = math.floor(z)
 
-        # Guard: Vertical bounds
         if not (0 <= iz < settings.MAP_DEPTH):
             return None
 
-        # Determine chunk identity
         cx: int = ix // settings.CHUNK_SIZE
         cy: int = iy // settings.CHUNK_SIZE
-        
+
         chunk: Optional[Chunk] = self.chunks.get((cx, cy))
         if chunk is None:
             return None
 
-        # Resolve clean local coordinate indices
         lx: int = ix % settings.CHUNK_SIZE
         ly: int = iy % settings.CHUNK_SIZE
-        
+
         return int(chunk.data[iz, ly, lx])
+
+    def set_voxel(
+        self,
+        ix: int,
+        iy: int,
+        iz: int,
+        voxel_id: int
+    ) -> bool:
+        """
+        Updates the voxel ID and flags local and neighbors for remeshing.
+        """
+        if not (0 <= iz < settings.MAP_DEPTH):
+            return False
+
+        cx: int = ix // settings.CHUNK_SIZE
+        cy: int = iy // settings.CHUNK_SIZE
+
+        chunk: Optional[Chunk] = self.chunks.get((cx, cy))
+        if chunk is None:
+            return False
+
+        lx: int = ix % settings.CHUNK_SIZE
+        ly: int = iy % settings.CHUNK_SIZE
+
+        chunk.data[iz, ly, lx] = voxel_id
+        
+        # Double buffering: keep is_meshed = True so old blocks still render
+        chunk.needs_remesh = True
+        self.remesh_requested = True
+
+        # Flag adjacent chunks for boundary/halo meshing updates
+        neighbors: List[Tuple[int, int]] = []
+        if lx == 0:
+            neighbors.append((cx - 1, cy))
+        elif lx == settings.CHUNK_SIZE - 1:
+            neighbors.append((cx + 1, cy))
+
+        if ly == 0:
+            neighbors.append((cx, cy - 1))
+        elif ly == settings.CHUNK_SIZE - 1:
+            neighbors.append((cx, cy + 1))
+
+        # Flag diagonal neighbors
+        if lx == 0 and ly == 0:
+            neighbors.append((cx - 1, cy - 1))
+        elif lx == 0 and ly == settings.CHUNK_SIZE - 1:
+            neighbors.append((cx - 1, cy + 1))
+        elif lx == settings.CHUNK_SIZE - 1 and ly == 0:
+            neighbors.append((cx + 1, cy - 1))
+        elif (
+            lx == settings.CHUNK_SIZE - 1 
+            and ly == settings.CHUNK_SIZE - 1
+        ):
+            neighbors.append((cx + 1, cy + 1))
+
+        for n_coords in neighbors:
+            n_chunk = self.chunks.get(n_coords)
+            if n_chunk is not None:
+                # Keep neighbor chunks rendered during the transition as well
+                n_chunk.needs_remesh = True
+
+        return True
 
     def find_spawn_point(self) -> Tuple[float, float, float]:
         """
         Locates the spawn block or calculates a ground fallback.
         """
-        # Default coordinates (center-map)
         f_x: float = 0.5
         f_y: float = 0.5
         f_z: float = float(settings.MAP_DEPTH // 2)
@@ -76,22 +129,19 @@ class World:
         if origin is None:
             return (f_x, f_y, f_z)
 
-        # 1. Scan for specific spawn marker ID
         s_idx: Tuple[NDArray, ...] = np.where(origin.data == ID_SPAWN)
-        
+
         if s_idx[0].size > 0:
             sz: int = int(s_idx[0][0])
             sy: int = int(s_idx[1][0])
             sx: int = int(s_idx[2][0])
-            
+
             return (
                 float(origin.world_x + sx + 0.5),
                 float(origin.world_y + sy + 0.5),
                 float(sz) + settings.PLAYER_HEIGHT
             )
 
-        # 2. Fallback: Identify terrain height at origin coordinate
-        # Sample the column at world (0,0) which is (1,1) in haloed data
         column: NDArray[np.uint8] = origin.data[:, 1, 1]
         solid_indices: NDArray[np.int_] = np.where(column != ID_AIR)[0]
 

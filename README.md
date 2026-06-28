@@ -1,4 +1,5 @@
-____           __  __                                             
+```text
+ ____           __  __                                             
 /\  _`\        /\ \/\ \                                      __    
 \ \ \L\ \__  __\ \ \ \ \    ___   _ __    __    ___      __ /\_\   
  \ \ ,__/\ \/\ \\ \ \ \ \  / __`\/\`'__\/'__`\/' _ `\  /'_ `\/\ \  
@@ -20,6 +21,14 @@ pip install pygame numpy pyyaml
 Launching the Engine:
 Execute the entry script from the project root:
 python run.py
+
+Controls:
+  - Movement   : W/A/S/D or Arrow keys.
+  - Elevation  : E to fly upward, Q to fly downward.
+  - Interaction: LEFT CLICK to destroy blocks, RIGHT CLICK to place blocks.
+  - Toggle HUD : Key 0 toggles the diagnostic debug overlay.
+  - Aiming     : A static targeting cross (+) is rendered at the center of 
+                 the screen during play to assist with aiming.
 
 Note: 1. Run map_maker.py to generate a block inspection walkway.
       2. Run pic_to_voxel.py to batch-convert images from /pic_imports
@@ -43,6 +52,7 @@ Performance    : Target 30 FPS @ 60m-80m view. Throughput: ~60k-100k faces/sec.
                  Note: Single-threaded architecture may experience frame-time
                  spikes during synchronous chunk generation and meshing.
 
+
 [2.0 MEMORY CONVENTION & DATA LAYOUT]
 -------------------------------------------------------------------------------
 Standard       : Single Unified Layout - (Z, Y, X) [Storage & Simulation]
@@ -56,6 +66,7 @@ The Transpose  : To avoid costly real-time 3D array transpositions on load,
 The Halo Trick : Chunks are generated with a +1 block border ([+2]x[+2]x[+2])
                  to ensure geometry continuity across boundaries.
 
+
 [2.1 PROCEDURAL PIPELINE]
 -------------------------------------------------------------------------------
 Bypass Logic   : Pure procedural chunks are regenerated from seed rather than
@@ -63,11 +74,46 @@ Bypass Logic   : Pure procedural chunks are regenerated from seed rather than
 Caching        : VoxelRegistry definitions are loaded once at initialization
                  to prevent redundant disk access during chunk generation.
 
+
 [2.2 FRAME 1 KICKSTART]
 -------------------------------------------------------------------------------
 Kickstart      : The Lifecycle Manager ignores movement thresholds on Frame 1.
 Rationale      : Forces immediate world reconciliation so the view frustum is 
                  populated instantly before the player gains control.
+
+
+[2.3 REAL-TIME BLOCK INTERACTION & RAYMARCHING]
+-------------------------------------------------------------------------------
+Targeting      : To interact with the world, the engine projects an invisible 
+                 line (a raycast) from the player's eye-line in the direction 
+                 the camera is looking.
+Fixed-Steps    : Instead of complex math formulas, the engine advances along 
+                 this line in small, 0.1-block increments up to a configurable 
+                 limit (8.0 blocks). At each step, it checks the voxel ID. If 
+                 a solid voxel is detected, the marching stops.
+Actions        : 
+  - Destruction: Left click replaces the targeted solid voxel with AIR (0) [1].
+  - Placement  : Right click backtracks exactly one step along the ray and 
+                 places a new block (using ACTIVE_BLOCK_ID from settings) in 
+                 the empty space preceding the hit [1].
+
+
+[2.4 DOUBLE-BUFFERED REMESHING (FLICKER-FREE UPDATE)]
+-------------------------------------------------------------------------------
+Double Buffer  : Normally, editing a block flags the chunk as unmeshed, 
+                 instantly hiding its entire structure from view and causing 
+                 a jarring blank flicker on the screen while the CPU rebuilds 
+                 the model.
+The Solution   : To solve this, the engine implements double-buffering. It 
+                 keeps drawing the old, existing geometry on-screen while the 
+                 meshing worker silently constructs the updated chunk model. 
+                 Once ready, the engine swaps them in a single frame, resulting 
+                 in completely seamless real-time updates.
+Boundary Sync  : Modifying a block on a chunk's outer boundary automatically 
+                 flags neighbor chunks to be updated. When rebuilt, the meshing 
+                 worker overlays adjacent chunk edits directly onto the halo 
+                 margins, preventing visual seams or missing faces at borders.
+
 
 [3.0 ATMOSPHERIC & VOLUMETRIC FX]
 -------------------------------------------------------------------------------
@@ -78,10 +124,22 @@ Note           : Volumetric overlays and height-shading are automatically
                  disabled for pre-authored inspection maps to ensure clear, 
                  unobscured visibility.
 
+
+[3.1 AIMING HUD OVERLAY (CROSSHAIR)]
+-------------------------------------------------------------------------------
+Aiming HUD     : A static, thin targeting cross (+) is drawn on top of the 
+                 rendered scene.
+Implementation : The crosshair is drawn directly in 2D space by the UI manager 
+                 at the exact coordinates of the viewport center. It is 
+                 rendered unconditionally during gameplay to help aim block 
+                 placements and destructions.
+
+
 [4.0 DATA INTEGRITY]
 -------------------------------------------------------------------------------
 Fingerprinting : Session manifest stores a hash of (Seed, Size, Depth).
                  Mismatches trigger a manifest update to prevent corruption.
+
 
 [5.0 CO-EXISTING CO-AXIAL ORIENTATION DOMAINS]
 -------------------------------------------------------------------------------
@@ -99,6 +157,7 @@ Fingerprinting : Session manifest stores a hash of (Seed, Size, Depth).
                    perfectly aligned horizontally with the player's line of 
                    sight at spawn.
 
+
 [6.0 GEOMETRIC WINDING & NORMAL CONVENTION]
 -------------------------------------------------------------------------------
 Winding Order : Counter-Clockwise (CCW) for front-facing polygons.
@@ -107,6 +166,7 @@ Basis Alignment:
   - World Right   : +X (1, 0, 0)
   - World Forward : +Y (0, 1, 0)
   - World Up      : +Z (0, 0, 1)
+
 
 [7.0 CORE SUBSYSTEM ARCHITECTURE]
 -------------------------------------------------------------------------------

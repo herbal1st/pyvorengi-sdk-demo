@@ -49,6 +49,9 @@ class UIManager:
         """
         Dispatches drawing calls with strict temporal throttling.
         """
+        if state.is_playing:
+            self._draw_crosshair()
+
         if not state.show_debug:
             return
 
@@ -80,3 +83,27 @@ class UIManager:
         """
         self.screen = new_screen
         self.debug.screen = new_screen
+
+    def _draw_crosshair(self) -> None:
+        """
+        Renders a simple targeting cross at the center of the screen.
+        """
+        center_x: int = self.screen.get_width() // 2
+        center_y: int = self.screen.get_height() // 2
+        size: int = 6
+        color = (255, 255, 255)
+
+        # Horizontal line
+        pygame.draw.line(
+            self.screen, color,
+            (center_x - size, center_y),
+            (center_x + size, center_y),
+            1
+        )
+        # Vertical line
+        pygame.draw.line(
+            self.screen, color,
+            (center_x, center_y - size),
+            (center_x, center_y + size),
+            1
+        )

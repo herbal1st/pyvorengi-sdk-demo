@@ -12,7 +12,6 @@ from settings import settings
 if TYPE_CHECKING:
     from engine.engine import VoxelEngine
 
-# Stores last execution time for throttled vertical movement
 _action_cooldowns: Dict[str, int] = {}
 
 
@@ -42,6 +41,8 @@ def _handle_events(engine: "VoxelEngine") -> None:
             _handle_single_keypress(engine, event.key)
         elif event.type == pygame.MOUSEMOTION:
             _handle_mouse(engine, event.rel)
+        elif event.type == pygame.MOUSEBUTTONDOWN:
+            _handle_mouse_click(engine, event.button)
         elif event.type in (
             pygame.WINDOWFOCUSGAINED, 
             pygame.WINDOWFOCUSLOST
@@ -57,6 +58,32 @@ def _handle_mouse(engine: "VoxelEngine", rel: Tuple[int, int]) -> None:
     if not engine.state_manager.is_playing:
         return
     engine.camera.update_rotation(float(rel[0]), float(rel[1]))
+
+
+def _handle_mouse_click(engine: "VoxelEngine", button: int) -> None:
+    """
+    Handles discrete mouse clicks for block placement and destruction.
+    """
+    if not engine.state_manager.is_playing:
+        return
+
+    from physics.raycast import perform_raycast
+
+    look, _, _ = engine.camera.get_orientation_vectors()
+    start_pos = (engine.player.x, engine.player.y, engine.player.z)
+
+    result = perform_raycast(engine.world, start_pos, look)
+    if result is None:
+        return
+
+    hit_voxel, prev_voxel = result
+
+    if button == 1:  # Left click: Destroy
+        hx, hy, hz = hit_voxel
+        engine.world.set_voxel(hx, hy, hz, 0)
+    elif button == 3:  # Right click: Place
+        px, py, pz = prev_voxel
+        engine.world.set_voxel(px, py, pz, settings.ACTIVE_BLOCK_ID)
 
 
 def _handle_single_keypress(engine: "VoxelEngine", key_id: int) -> None:
@@ -108,7 +135,9 @@ def _apply_movement_logic(
     if dx == 0.0 and dy == 0.0:
         return
 
-    move_speed: float = settings.MOVE_SPEED * (engine.clock.fixed_dt * 60.0)
+    move_speed: float = (
+        settings.MOVE_SPEED * (engine.clock.fixed_dt * 60.0)
+    )
     engine.player.move(dx * move_speed, dy * move_speed, engine.world)
 
 

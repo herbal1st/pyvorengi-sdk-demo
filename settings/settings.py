@@ -17,6 +17,10 @@ FPS: Final[int] = 30  # hertz
 FOV: Final[int] = 600  # ratio
 WINDOW_ICON_NAME: Final[str] = "icon.png"  # filename
 
+# ------ Raycasting & Interaction ------
+RAYCAST_DIST: Final[float] = 8.0  # blocks
+ACTIVE_BLOCK_ID: int = 3  # id
+
 # ------ User Interface ------
 UI_BG_ALPHA: Final[int] = 180  # opacity
 UI_REFRESH_RATE_MS: Final[int] = 100  # ms
