@@ -79,12 +79,10 @@ class World:
         ly: int = iy % settings.CHUNK_SIZE
 
         chunk.data[iz, ly, lx] = voxel_id
-        
-        # Double buffering: keep is_meshed = True so old blocks still render
+
         chunk.needs_remesh = True
         self.remesh_requested = True
 
-        # Flag adjacent chunks for boundary/halo meshing updates
         neighbors: List[Tuple[int, int]] = []
         if lx == 0:
             neighbors.append((cx - 1, cy))
@@ -96,7 +94,6 @@ class World:
         elif ly == settings.CHUNK_SIZE - 1:
             neighbors.append((cx, cy + 1))
 
-        # Flag diagonal neighbors
         if lx == 0 and ly == 0:
             neighbors.append((cx - 1, cy - 1))
         elif lx == 0 and ly == settings.CHUNK_SIZE - 1:
@@ -104,7 +101,7 @@ class World:
         elif lx == settings.CHUNK_SIZE - 1 and ly == 0:
             neighbors.append((cx + 1, cy - 1))
         elif (
-            lx == settings.CHUNK_SIZE - 1 
+            lx == settings.CHUNK_SIZE - 1
             and ly == settings.CHUNK_SIZE - 1
         ):
             neighbors.append((cx + 1, cy + 1))
@@ -112,14 +109,13 @@ class World:
         for n_coords in neighbors:
             n_chunk = self.chunks.get(n_coords)
             if n_chunk is not None:
-                # Keep neighbor chunks rendered during the transition as well
                 n_chunk.needs_remesh = True
 
         return True
 
     def find_spawn_point(self) -> Tuple[float, float, float]:
         """
-        Locates the spawn block or calculates a ground fallback.
+        Locates the spawn block or calculates a safe ground fallback.
         """
         f_x: float = 0.5
         f_y: float = 0.5
@@ -142,11 +138,16 @@ class World:
                 float(sz) + settings.PLAYER_HEIGHT
             )
 
-        column: NDArray[np.uint8] = origin.data[:, 1, 1]
+        c_center: int = settings.CHUNK_SIZE // 2
+        column: NDArray[np.uint8] = origin.data[:, c_center, c_center]
         solid_indices: NDArray[np.int_] = np.where(column != ID_AIR)[0]
 
         if solid_indices.size > 0:
             h_z: float = float(solid_indices[-1])
-            return (f_x, f_y, h_z + 1.0 + settings.PLAYER_HEIGHT)
+            return (
+                float(origin.world_x + c_center + 0.5),
+                float(origin.world_y + c_center + 0.5),
+                h_z + 1.0 + settings.PLAYER_HEIGHT
+            )
 
         return (f_x, f_y, f_z)

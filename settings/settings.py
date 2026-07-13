@@ -11,7 +11,7 @@ HEADER_PREFIX: Final[str] = "v_"  # string
 FORCE_FRESH_WORLD: Final[bool] = True  # bool
 
 # ------ Hardware & Display ------
-SCREEN_RES: Final[Tuple[int, int]] = (1440, 900)  # pixels
+SCREEN_RES: Final[Tuple[int, int]] = (1280, 800)  # pixels
 START_FULLSCREEN: Final[bool] = False  # bool
 FPS: Final[int] = 30  # hertz
 FOV: Final[int] = 600  # ratio
@@ -67,6 +67,12 @@ NOISE_TYPE_SIMPLEX: Final[str] = "SIMPLEX"  # type
 ACTIVE_NOISE_TYPE: str = NOISE_TYPE_PERLIN  # type
 NOISE_SCALE: float = 50.0  # scale
 MAX_TERRAIN_HEIGHT_RATIO: Final[float] = 0.95  # ratio
+
+# ------ Sky Islands (Procedural Post-Processing) ------
+SKY_ISLANDS_ON: bool = True  # bool
+SKY_ISLAND_MIRROR_HEIGHT: int = 11  # blocks
+SKY_ISLAND_BOTTOM_FILL_ID: int = 3  # id
+SPAWN_SAFETY_PAD_SIZE: int = 3  # blocks
 
 # ------ Lighting & Shading ------
 SKY_COLOR: Final[Tuple[int, int, int]] = (20, 195, 230)  # rgb
