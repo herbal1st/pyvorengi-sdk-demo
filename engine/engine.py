@@ -49,6 +49,9 @@ class VoxelEngine:
         self.camera: Camera = Camera()
         self.atmosphere: AtmosphereManager = AtmosphereManager()
         
+        # Initialize building state variables
+        self.current_build_id: int = settings.DEFAULT_BLOCK_ID
+
         # Player and visual pipeline
         self.player: Entity = self._init_player()
         self.renderer: Renderer = Renderer(
@@ -87,6 +90,22 @@ class VoxelEngine:
         self.state_manager.toggle_fullscreen()
         self.renderer.update_screen_reference(surf)
         self.ui.update_screen_reference(surf)
+
+    def cycle_build_block(self, direction: int) -> None:
+        """
+        Cycles the active buildable block ID smoothly with wrapping.
+        """
+        buildable_ids = self.world.registry.get_registered_ids()
+        if not buildable_ids:
+            return
+
+        try:
+            idx = buildable_ids.index(self.current_build_id)
+        except ValueError:
+            idx = 0
+
+        new_idx = (idx + direction) % len(buildable_ids)
+        self.current_build_id = buildable_ids[new_idx]
 
     def _update_physics_logic(self) -> None:
         """
@@ -129,7 +148,8 @@ class VoxelEngine:
             clock_ref=self.clock,
             active_faces=face_count,
             visible_sections=len(self.renderer.scene.last_v_count),
-            total_sections=self._cached_t_sec
+            total_sections=self._cached_t_sec,
+            current_build_id=self.current_build_id
         )
 
         self.lifecycle.manage_updates(self.player, self.camera, self.renderer)

@@ -27,6 +27,11 @@ class UIManager:
 
         self.screen: pygame.Surface = screen
         self.debug: DebugView = DebugView(screen)
+        
+        # Establish font for permanent UI elements
+        self.font: pygame.font.Font = pygame.font.SysFont(
+            "monospace", 18, bold=True
+        )
 
         # Rate at which numbers (FPS, Coords) are recalculated
         self._refresh_rate_ms: int = settings.UI_REFRESH_RATE_MS
@@ -44,13 +49,15 @@ class UIManager:
         clock_ref: "EngineClock",
         active_faces: int,
         visible_sections: int,
-        total_sections: int
+        total_sections: int,
+        current_build_id: int = 0,
     ) -> None:
         """
         Dispatches drawing calls with strict temporal throttling.
         """
         if state.is_playing:
             self._draw_crosshair()
+            self._draw_block_indicator(current_build_id)
 
         if not state.show_debug:
             return
@@ -107,3 +114,41 @@ class UIManager:
             (center_x, center_y + size),
             1
         )
+
+    def _draw_block_indicator(self, build_id: int) -> None:
+        """
+        Draws a semi-transparent HUD circle indicating the selected block.
+        """
+        radius: int = 24
+        padding: int = 40
+
+        # Calculate bottom-right positioning dynamically
+        cx: int = self.screen.get_width() - radius - padding
+        cy: int = self.screen.get_height() - radius - padding
+
+        # Temporary surface configured with alpha channel transparency
+        temp_surf = pygame.Surface(
+            (radius * 2, radius * 2), pygame.SRCALPHA
+        )
+
+        # Semi-transparent background (R, G, B, A)
+        bg_color = (20, 20, 20, 140)
+        pygame.draw.circle(
+            temp_surf, bg_color, (radius, radius), radius
+        )
+
+        # Subtle dark border
+        outline_color = (100, 100, 100, 200)
+        pygame.draw.circle(
+            temp_surf, outline_color, (radius, radius), radius, 1
+        )
+
+        # Blit the combined alpha layer to target screen coordinate
+        self.screen.blit(temp_surf, (cx - radius, cy - radius))
+
+        # Render centered numerical text overlay
+        text_str: str = str(build_id)
+        t_img = self.font.render(text_str, True, (255, 255, 255))
+        tx: int = cx - (t_img.get_width() // 2)
+        ty: int = cy - (t_img.get_height() // 2)
+        self.screen.blit(t_img, (tx, ty))

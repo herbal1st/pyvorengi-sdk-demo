@@ -83,7 +83,7 @@ def _handle_mouse_click(engine: "VoxelEngine", button: int) -> None:
         engine.world.set_voxel(hx, hy, hz, 0)
     elif button == 3:  # Right click: Place
         px, py, pz = prev_voxel
-        engine.world.set_voxel(px, py, pz, settings.ACTIVE_BLOCK_ID)
+        engine.world.set_voxel(px, py, pz, engine.current_build_id)
 
 
 def _handle_single_keypress(engine: "VoxelEngine", key_id: int) -> None:
@@ -104,9 +104,23 @@ def _handle_single_keypress(engine: "VoxelEngine", key_id: int) -> None:
 
     if keymap.is_key_bound_to(key_id, keymap.TOGGLE_DEBUG):
         engine.state_manager.toggle_debug()
+        return
 
     if keymap.is_key_bound_to(key_id, keymap.TOGGLE_FOG_MODE):
         engine.atmosphere.toggle_fog_mode()
+        return
+
+    if keymap.is_key_bound_to(key_id, keymap.SELECT_PREV_BLOCK):
+        engine.cycle_build_block(-1)
+        return
+
+    if keymap.is_key_bound_to(key_id, keymap.SELECT_DEFAULT_BLOCK):
+        engine.current_build_id = settings.DEFAULT_BLOCK_ID
+        return
+
+    if keymap.is_key_bound_to(key_id, keymap.SELECT_NEXT_BLOCK):
+        engine.cycle_build_block(1)
+        return
 
 
 def _apply_movement_logic(

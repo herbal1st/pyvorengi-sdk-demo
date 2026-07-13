@@ -3,7 +3,7 @@ Voxel registry for block properties and YAML definitions.
 """
 
 from pathlib import Path
-from typing import Any, Dict, Final, Optional, Tuple
+from typing import Any, Dict, Final, Optional, Tuple, List
 
 import numpy as np
 import yaml
@@ -122,6 +122,15 @@ class VoxelRegistry:
         Checks if a block ID is designated as a spawn marker.
         """
         return self._cache.get(b_id, {}).get("is_spawn", False)
+
+    def get_registered_ids(self) -> List[int]:
+        """
+        Returns a sorted list of all buildable solid block IDs.
+        """
+        return sorted([
+            b_id for b_id, props in self._cache.items()
+            if b_id != 0 and not props.get("is_spawn", False)
+        ])
 
     def _load_definitions(self) -> None:
         """

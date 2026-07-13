@@ -19,7 +19,7 @@ WINDOW_ICON_NAME: Final[str] = "icon.png"  # filename
 
 # ------ Raycasting & Interaction ------
 RAYCAST_DIST: Final[float] = 8.0  # blocks
-ACTIVE_BLOCK_ID: int = 3  # id
+DEFAULT_BLOCK_ID: Final[int] = 3  # id
 
 # ------ User Interface ------
 UI_BG_ALPHA: Final[int] = 180  # opacity
@@ -69,7 +69,7 @@ NOISE_SCALE: float = 50.0  # scale
 MAX_TERRAIN_HEIGHT_RATIO: Final[float] = 0.95  # ratio
 
 # ------ Sky Islands (Procedural Post-Processing) ------
-SKY_ISLANDS_ON: bool = True  # bool
+SKY_ISLANDS_ON: bool = False  # bool
 SKY_ISLAND_MIRROR_HEIGHT: int = 11  # blocks
 SKY_ISLAND_BOTTOM_FILL_ID: int = 3  # id
 SPAWN_SAFETY_PAD_SIZE: int = 3  # blocks

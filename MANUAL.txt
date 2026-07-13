@@ -269,8 +269,8 @@ RAYCAST_DIST                    : Float. Maximum reach of the targeting ray
                                   projected from the camera eye-line.
                                   Metric: blocks.
 
-ACTIVE_BLOCK_ID                 : Integer. Standard voxel block ID from the 
-                                  registry used when placing a block.
+DEFAULT_BLOCK_ID                : Integer. The standard starting voxel block 
+                                  ID from the registry loaded at boot.
                                   Metric: id.
 
 ===============================================================================

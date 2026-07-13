@@ -26,6 +26,7 @@ Controls:
   - Movement   : W/A/S/D or Arrow keys.
   - Elevation  : E to fly upward, Q to fly downward.
   - Interaction: LEFT CLICK to destroy blocks, RIGHT CLICK to place blocks.
+  - Selection  : 1 to cycle ID down, 3 to cycle ID up, 2 to reset to default.
   - Toggle HUD : Key 0 toggles the diagnostic debug overlay.
   - Aiming     : A static targeting cross (+) is rendered at the center of 
                  the screen during play to assist with aiming.
@@ -96,8 +97,8 @@ Fixed-Steps    : Instead of complex math formulas, the engine advances along
 Actions        : 
   - Destruction: Left click replaces the targeted solid voxel with AIR (0).
   - Placement  : Right click backtracks exactly one step along the ray and 
-                 places a new block (using ACTIVE_BLOCK_ID from settings) in 
-                 the empty space preceding the hit.
+                 places a new block (using the currently selected ID shown in 
+                 the HUD badge) in the empty space preceding the hit.
 
 
 [2.4 DOUBLE-BUFFERED REMESHING (FLICKER-FREE UPDATE)]
