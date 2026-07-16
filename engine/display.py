@@ -2,6 +2,8 @@
 Manages the application display surface and hardware windowing states.
 """
 
+from __future__ import annotations
+
 from pathlib import Path
 import pygame
 from settings import settings
@@ -25,7 +27,10 @@ class DisplayManager:
         pygame.display.set_caption("PyVorengi SDK")
         self._apply_window_icon()
 
-    def toggle_fullscreen(self, is_currently_fullscreen: bool) -> pygame.Surface:
+    def toggle_fullscreen(
+        self, 
+        is_currently_fullscreen: bool
+    ) -> pygame.Surface:
         """
         Switches between windowed and fullscreen modes.
         """

@@ -20,9 +20,6 @@ def generate_unique_world_id() -> str:
     """
     Creates a unique identifier for the world save folder.
     """
-    if not settings.USE_PROCEDURAL:
-        return _generate_static_map_id()
-
     algo_tag: str = _get_noise_algorithm_tag()
 
     return (
@@ -53,17 +50,6 @@ def _get_noise_algorithm_tag() -> str:
     if settings.ACTIVE_NOISE_TYPE == settings.NOISE_TYPE_PERLIN:
         return "PERL"
     return "SIMP"
-
-
-def _generate_static_map_id() -> str:
-    """
-    Generates a folder ID based on a static map file's metadata.
-    """
-    stem: str = Path(settings.GLOBAL_MAP_NAME).stem
-    return (
-        f"map_{stem}_S{settings.WORLD_SEED}_"
-        f"CS{settings.CHUNK_SIZE}_MD{settings.MAP_DEPTH}"
-    )
 
 
 def _ensure_world_dir(world_id: str) -> Path:

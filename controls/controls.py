@@ -83,7 +83,7 @@ def _handle_mouse_click(engine: "VoxelEngine", button: int) -> None:
         engine.world.set_voxel(hx, hy, hz, 0)
     elif button == 3:  # Right click: Place
         px, py, pz = prev_voxel
-        engine.world.set_voxel(px, py, pz, engine.current_build_id)
+        engine.world.set_voxel(px, py, pz, settings.ACTIVE_BLOCK_ID)
 
 
 def _handle_single_keypress(engine: "VoxelEngine", key_id: int) -> None:
@@ -104,23 +104,25 @@ def _handle_single_keypress(engine: "VoxelEngine", key_id: int) -> None:
 
     if keymap.is_key_bound_to(key_id, keymap.TOGGLE_DEBUG):
         engine.state_manager.toggle_debug()
-        return
 
     if keymap.is_key_bound_to(key_id, keymap.TOGGLE_FOG_MODE):
         engine.atmosphere.toggle_fog_mode()
-        return
 
-    if keymap.is_key_bound_to(key_id, keymap.SELECT_PREV_BLOCK):
-        engine.cycle_build_block(-1)
-        return
+    # --- Interactive Showcase Hooks ---
+    if keymap.is_key_bound_to(key_id, keymap.REGEN_WORLD):
+        engine.regenerate_world()
 
-    if keymap.is_key_bound_to(key_id, keymap.SELECT_DEFAULT_BLOCK):
-        engine.current_build_id = settings.DEFAULT_BLOCK_ID
-        return
+    if keymap.is_key_bound_to(key_id, keymap.CYCLE_ALGO):
+        engine.cycle_noise_algorithm()
 
-    if keymap.is_key_bound_to(key_id, keymap.SELECT_NEXT_BLOCK):
-        engine.cycle_build_block(1)
-        return
+    if keymap.is_key_bound_to(key_id, keymap.CYCLE_HAZE_HEIGHT):
+        engine.cycle_haze_height()
+
+    if keymap.is_key_bound_to(key_id, keymap.CYCLE_FOG_DENS):
+        engine.cycle_fog_density()
+
+    if keymap.is_key_bound_to(key_id, keymap.CYCLE_SKY):
+        engine.cycle_sky_color()
 
 
 def _apply_movement_logic(
@@ -182,5 +184,5 @@ def _is_active(keys: Sequence[bool], action: str) -> bool:
     """
     Checks if any hardware key bound to a logical action is pressed.
     """
-    bound_keys: List[int] = keymap.BINDINGS.get(action, [])
+    bound_keys: List[int] = keymap.get_bindings().get(action, [])
     return any(keys[k] for k in bound_keys)

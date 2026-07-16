@@ -2,6 +2,8 @@
 Core 3D visual pipeline for projection and rasterization.
 """
 
+from __future__ import annotations
+
 from typing import Any
 
 import pygame

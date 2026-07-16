@@ -1,209 +1,93 @@
-```text
- ____           __  __                                             
-/\  _`\        /\ \/\ \                                      __    
-\ \ \L\ \__  __\ \ \ \ \    ___   _ __    __    ___      __ /\_\   
- \ \ ,__/\ \/\ \\ \ \ \ \  / __`\/\`'__\/'__`\/' _ `\  /'_ `\/\ \  
-  \ \ \/\ \ \_\ \\ \ \_/ \/\ \L\ \ \ \//\  __//\ \/\ \/\ \L\ \ \ \ 
-   \ \_\ \/`____ \\ `\___/\ \____/\ \_\\ \____\ \_\ \_\ \____ \ \_\
-    \/_/  `/___/> \`\/__/  \/___/  \/_/ \/____/\/_/\/_/\/___L\ \/_/
-             /\___/                                      /\____/   
-             \/__/                                       \_/__/    
+```text                 
+    __           __                         
+ __/\ \__       /\ \           __           
+/\_\ \ ,_\   ___\ \ \___      /\_\    ___   
+\/\ \ \ \/  /'___\ \  _ `\    \/\ \  / __`\ 
+ \ \ \ \ \_/\ \__/\ \ \ \ \  __\ \ \/\ \L\ \
+  \ \_\ \__\ \____\\ \_\ \_\/\_\\ \_\ \____/
+   \/_/\/__/\/____/ \/_/\/_/\/_/ \/_/\/___/   
 ===============================================================================
-               PYVORENGI ENGINE - TECHNICAL SPECIFICATION
+             PYVORENGI ENGINE - WEB & BENCHMARKING RELEASES
 ===============================================================================
 
-[HOW TO RUN]
+Welcome to the specialized WebAssembly deployment branch of the PyVorengi 
+Voxel Engine. 
+
+This branch hosts the exact legacy build compiled for the web-based interactive 
+demo running live on itch.io:
+https://herbal1st.itch.io/pyvorengi-voxel-engine-demo
+
+
+[1.0 ENGINE AND BRANCH SYNCHRONIZATION STATUS]
 -------------------------------------------------------------------------------
-Prerequisites:
-Ensure Python 3.x is installed. Install required dependencies via pip:
-pip install pygame numpy pyyaml
+Please note that this branch is intentionally NOT fully synchronized with our 
+main desktop branch. This is due to:
 
-Launching the Engine:
-Execute the entry script from the project root:
-python run.py
-
-Controls:
-  - Movement   : W/A/S/D or Arrow keys.
-  - Elevation  : E to fly upward, Q to fly downward.
-  - Interaction: LEFT CLICK to destroy blocks, RIGHT CLICK to place blocks.
-  - Toggle HUD : Key 0 toggles the diagnostic debug overlay.
-  - Aiming     : A static targeting cross (+) is rendered at the center of 
-                 the screen during play to assist with aiming.
-
-Note: 1. Run map_maker.py to generate a block inspection walkway.
-      2. Run pic_to_voxel.py to batch-convert images from /pic_imports
-         into compressed voxel maps (.npz) within map/maps/.
-      3. In settings.py, set USE_PROCEDURAL = False and GLOBAL_MAP_NAME 
-         to your desired filename (e.g., "ship 33x33.npz") to load it.
-      (A pre-authored "default_map.npz" and demo pixel art images
-       inside /pic_imports are pre-installed for immediate testing)
-
-Hint: The aesthetic sweet spot for voxel art is 16x16 to 128x128 pixels. 
-      Higher resolutions (256+) often lose the "chunky" voxel charm and 
-      will eventually degrade CPU-side rendering performance.
+  - Specialized Web Requirements: The web build utilizes single-threaded task-
+    trickling loops to preserve web browser responsiveness.
+  - Omission of Heavy Subsystems: Desktop-specific features such as the 3.5D 
+    Porter Bridge, the Space Flight hybrid game, image-to-voxel compilations, 
+    and persistent file caching are stripped to minimize deployment footprint.
+  - Semi-Active Porting: Core optimizations are brought over selectively only 
+    as they prove viable within single-threaded WebAssembly runtimes.
 
 
-[1.0 SYSTEM OVERVIEW]
+[2.0 WEB COMPATIBILITY AND WASM OPTIMIZATIONS]
 -------------------------------------------------------------------------------
-Core Philosophy: Vectorized, Cache-Conscious, and Single-Threaded.
-Architecture   : Chessboard-modular voxel engine utilizing a static halo-padding.
-Source Hardware: Ryzen 7 5825U (16GB RAM).
-Performance    : Target 30 FPS @ 60m-80m view. Throughput: ~60k-100k faces/sec.
-                 Note: Single-threaded architecture may experience frame-time
-                 spikes during synchronous chunk generation and meshing.
+This branch has been designed around the strict constraints of standard web-
+assembly browsers:
+
+  - Single-Threaded Pipeline: Python multiprocessing is bypassed. Chunk loads 
+    and meshing tasks are trickled sequentially (via asyncio.sleep) to maintain 
+    smooth browser refresh rates without crashing WASM execution layers.
+  - Vectorized Math Focus: Direct, highly-vectorized NumPy operations are used 
+    for projection, backface culling, and topological sorting to maximize 
+    CPU throughput.
+  - Configured for Web Compilers: This branch includes standard Pygbag script 
+    headers in 'main.py' and a modern 'pyproject.toml' configuration file for 
+    Pygodide automated dependency resolution.
 
 
-[2.0 MEMORY CONVENTION & DATA LAYOUT]
+[3.0 RUNNING THE BENCHMARKS LOCALLY]
 -------------------------------------------------------------------------------
-Standard       : Single Unified Layout - (Z, Y, X) [Storage & Simulation]
-Rationale      : Both procedural generation and pre-authored static maps store 
-                 voxels as (Z, Y, X) to align with NumPy C-order contiguity and 
-                 optimize flat serialization.
-The Transpose  : To avoid costly real-time 3D array transpositions on load, 
-                 the (X, Y, Z) to (Z, Y, X) mapping and horizontal flip is 
-                 done entirely offline inside the map maker and forge scripts 
-                 at save-time.
-The Halo Trick : Chunks are generated with a +1 block border ([+2]x[+2]x[+2])
-                 to ensure geometry continuity across boundaries.
+You can compile and run this web build locally using either Pygbag or 
+Pygodide tools.
+
+Running with Pygbag:
+1. Install pygbag via pip:
+   pip install pygbag
+2. Execute pygbag targeting the branch directory:
+   pygbag .
+
+Running with Pygodide:
+1. Ensure your local Pygodide environment is configured.
+2. The Pygodide compiler will automatically parse 'pyproject.toml' to fetch 
+   and bundle the required 'numpy' and 'pygame' dependencies.
 
 
-[2.1 PROCEDURAL PIPELINE]
+[4.0 INTERACTIVE SANDBOX CONTROLS]
 -------------------------------------------------------------------------------
-Bypass Logic   : Pure procedural chunks are regenerated from seed rather than
-                 saved to disk to minimize I/O overhead in the demo.
-Caching        : VoxelRegistry definitions are loaded once at initialization
-                 to prevent redundant disk access during chunk generation.
+To test rendering and calculation latency, please click inside the window to 
+capture your mouse, and use the following interactive diagnostic hotkeys:
+
+  - Move / Fly: W/A/S/D — Move horizontally | E — Fly Up | Q — Fly Down
+  - Telemetry : 0 (Zero Key) — Toggle Debug & Controls latency HUD
+  - World Seed: R — Rebuild world with a completely randomized seed
+  - Noise Model: N — Cycle between Perlin and Simplex noise algorithms
+  - Fog Density: F — Cycle through distance fog intensities
+  - Valley Haze: H — Cycle valley haze/mist altitudes
+  - Fog Formula: T — Toggle distance fog calculations (Linear vs Exponential)
+  - Sky Preset : C — Cycle sky and ambient background colors
 
 
-[2.2 FRAME 1 KICKSTART]
+[5.0 CODE AND ARCHITECTURE DETAILS]
 -------------------------------------------------------------------------------
-Kickstart      : The Lifecycle Manager ignores movement thresholds on Frame 1.
-Rationale      : Forces immediate world reconciliation so the view frustum is 
-                 populated instantly before the player gains control.
+For a deep dive into the engine's core coordinate domains, C-contiguity, and 
+topological sorting math, please consult the primary desktop branch's 
+documentation:
 
-
-[2.3 REAL-TIME BLOCK INTERACTION & RAYMARCHING]
--------------------------------------------------------------------------------
-Targeting      : To interact with the world, the engine projects an invisible 
-                 line (a raycast) from the player's eye-line in the direction 
-                 the camera is looking.
-Fixed-Steps    : Instead of complex math formulas, the engine advances along 
-                 this line in small, 0.1-block increments up to a configurable 
-                 limit (8.0 blocks). At each step, it checks the voxel ID. If 
-                 a solid voxel is detected, the marching stops.
-Actions        : 
-  - Destruction: Left click replaces the targeted solid voxel with AIR (0) [1].
-  - Placement  : Right click backtracks exactly one step along the ray and 
-                 places a new block (using ACTIVE_BLOCK_ID from settings) in 
-                 the empty space preceding the hit [1].
-
-
-[2.4 DOUBLE-BUFFERED REMESHING (FLICKER-FREE UPDATE)]
--------------------------------------------------------------------------------
-Double Buffer  : Normally, editing a block flags the chunk as unmeshed, 
-                 instantly hiding its entire structure from view and causing 
-                 a jarring blank flicker on the screen while the CPU rebuilds 
-                 the model.
-The Solution   : To solve this, the engine implements double-buffering. It 
-                 keeps drawing the old, existing geometry on-screen while the 
-                 meshing worker silently constructs the updated chunk model. 
-                 Once ready, the engine swaps them in a single frame, resulting 
-                 in completely seamless real-time updates.
-Boundary Sync  : Modifying a block on a chunk's outer boundary automatically 
-                 flags neighbor chunks to be updated. When rebuilt, the meshing 
-                 worker overlays adjacent chunk edits directly onto the halo 
-                 margins, preventing visual seams or missing faces at borders.
-
-
-[3.0 ATMOSPHERIC & VOLUMETRIC FX]
--------------------------------------------------------------------------------
-Power Fog      : Distance-based blending using an exponential power scale.
-Height Shading : Global luma darkening relative to the map ceiling.
-Haze Overlay   : 2D alpha-blended screen wash simulating immersion depth.
-Note           : Volumetric overlays and height-shading are automatically 
-                 disabled for pre-authored inspection maps to ensure clear, 
-                 unobscured visibility.
-
-
-[3.1 AIMING HUD OVERLAY (CROSSHAIR)]
--------------------------------------------------------------------------------
-Aiming HUD     : A static, thin targeting cross (+) is drawn on top of the 
-                 rendered scene.
-Implementation : The crosshair is drawn directly in 2D space by the UI manager 
-                 at the exact coordinates of the viewport center. It is 
-                 rendered unconditionally during gameplay to help aim block 
-                 placements and destructions.
-
-
-[4.0 DATA INTEGRITY]
--------------------------------------------------------------------------------
-Fingerprinting : Session manifest stores a hash of (Seed, Size, Depth).
-                 Mismatches trigger a manifest update to prevent corruption.
-
-
-[5.0 CO-EXISTING CO-AXIAL ORIENTATION DOMAINS]
--------------------------------------------------------------------------------
-1. THE CARTESIAN ZONE (X, Y, Z)
-   - Scope       : Physics, Raycasting, and Mesh Rendering.
-   - Identity    : Yaw = 0 faces North (+Y), Right points East (+X).
-
-2. THE MEMORY ZONE (Z, Y, X)
-   - Scope       : Voxel Storage and Binary .npz Serialization.
-
-3. THE LAUNCHPAD UX DESIGN (PIC TO VOXEL)
-   - Layout      : Chunk row 0 contains a solid, 16x16 launchpad runway at Z=0.
-                   Chunk row 1 is empty air (the flight gap).
-                   Chunk row 2 contains the forged picture starting at Z=0, 
-                   perfectly aligned horizontally with the player's line of 
-                   sight at spawn.
-
-
-[6.0 GEOMETRIC WINDING & NORMAL CONVENTION]
--------------------------------------------------------------------------------
-Winding Order : Counter-Clockwise (CCW) for front-facing polygons.
-Culling Logic : Signed 2D Area < 0 is visible; Area >= 0 is culled.
-Basis Alignment: 
-  - World Right   : +X (1, 0, 0)
-  - World Forward : +Y (0, 1, 0)
-  - World Up      : +Z (0, 0, 1)
-
-
-[7.0 CORE SUBSYSTEM ARCHITECTURE]
--------------------------------------------------------------------------------
-                                  [ run.py ]
-                                       │
-                                       ▼
-                             [ VoxelEngine (Core) ]
-                                       │
-               ┌───────────────────────┴───────────────────────┐
-               ▼                                               ▼
-       [ Timing Control ]                             [ State & Inputs ]
-        (engine/clock)                               (statemanager/control)
-               │                                               │
-               └───────────────────────┬───────────────────────┘
-                                       ▼
-                              [ SYSTEM TICK LOOP ]
-                                       │
-      ┌────────────────────────────────┴────────────────────────┐
-      ▼                                                         ▼
-┌──────────────┐ (Fixed dt)                              ┌──────────────┐
-│ PHYSICS LOOP │                                         │ RENDER LOOP  │
-└──────┬───────┘                                         └──────┬───────┘
-       │                                                        │
-       ├─► [ Player Entity ]                                    ├─► [ Blend (α) ]
-       │   └─► Collision/Resolution                             │
-       │                                                        ├─► [ Scene ]
-       └─► [ Static Map Slice ]                                 │   ├─► Frustum
-                                                                │   └─► Sorting
-                                                                │
-                                                                ├─► [ Batcher ]
-                                                                │   └─► Rasterize
-                                                                │
-                                                                ├─► [ Lifecycle ]
-                                                                │   └─► Meshing
-                                                                │
-                                                                └─► [ UI/Debug ]
+  - DEVELOPER.md : Conceptual blueprints, memory layouts, and workflow setups.
+  - MANUAL.txt   : Full documentation of core engine settings and variables.
 
 ===============================================================================
- 
-Distributed under the MIT License. Copyright (c) 2025 herbal1st.
+Distributed under the MIT License. Copyright (c) 2025-2026 herbal1st.

@@ -2,6 +2,8 @@
 Optimized telemetry overlay using surface memoization and static caching.
 """
 
+from __future__ import annotations
+
 from collections import deque
 from typing import Deque, Final, List, Tuple, TYPE_CHECKING, Optional
 
@@ -120,14 +122,19 @@ class DebugView:
         move_keys: str = self._get_movement_legend()
         elev_keys: str = self._get_elevation_legend()
 
-        lines: List[str] = [""] * 8
-        lines[1] = f"MOVE: {move_keys}"
-        lines[2] = f"ELEV: {elev_keys}"
-        lines[3] = f"QUIT: {self._get_key_name(keymap.QUIT_APP)}"
-        lines[4] = f"FOG:  {self._get_key_name(keymap.TOGGLE_FOG_MODE)}"
-        lines[5] = f"FS:   {self._get_key_name(keymap.TOGGLE_FULLSCREEN)}"
-        lines[6] = f"DBUG: {self._get_key_name(keymap.TOGGLE_DEBUG)}"
-        lines[7] = f"PAUS: {self._get_key_name(keymap.TOGGLE_PAUSE)}"
+        lines: List[str] = [""] * 13
+        lines[1] = f"MOVE:  {move_keys}"
+        lines[2] = f"ELEV:  {elev_keys}"
+        lines[3] = f"DBUG:  {self._get_key_name(keymap.TOGGLE_DEBUG)}"
+        lines[4] = f"PAUS:  {self._get_key_name(keymap.TOGGLE_PAUSE)}"
+        lines[5] = f"FS:    {self._get_key_name(keymap.TOGGLE_FULLSCREEN)}"
+        lines[6] = f"QUIT:  {self._get_key_name(keymap.QUIT_APP)}"
+        lines[7] = "---------------------"
+        lines[8] = f"SEED:  {self._get_key_name(keymap.REGEN_WORLD)}"
+        lines[9] = f"ALGO:  {self._get_key_name(keymap.CYCLE_ALGO)}"
+        lines[10] = f"FOG:   {self._get_key_name(keymap.CYCLE_FOG_DENS)}"
+        lines[11] = f"HAZE:  {self._get_key_name(keymap.CYCLE_HAZE_HEIGHT)}"
+        lines[12] = f"SKY:   {self._get_key_name(keymap.CYCLE_SKY)}"
 
         return self._create_panel_texture(lines)
 
@@ -142,7 +149,7 @@ class DebugView:
         ]
         keys = []
         for a in actions:
-            if bound := keymap.BINDINGS.get(a):
+            if bound := keymap.get_bindings().get(a):
                 keys.append(pygame.key.name(bound[0]).upper())
         
         return "/".join(dict.fromkeys(keys))
@@ -151,8 +158,8 @@ class DebugView:
         """
         Identifies primary keys for vertical movement.
         """
-        up = keymap.BINDINGS.get(keymap.MOVE_UP, [])
-        dn = keymap.BINDINGS.get(keymap.MOVE_DOWN, [])
+        up = keymap.get_bindings().get(keymap.MOVE_UP, [])
+        dn = keymap.get_bindings().get(keymap.MOVE_DOWN, [])
         u_name = pygame.key.name(up[0]).upper() if up else "?"
         d_name = pygame.key.name(dn[0]).upper() if dn else "?"
         return f"{u_name} | {d_name}"
@@ -161,7 +168,7 @@ class DebugView:
         """
         Extracts the primary hardware key name for a logical action.
         """
-        bound: List[int] = keymap.BINDINGS.get(action, [])
+        bound: List[int] = keymap.get_bindings().get(action, [])
         return pygame.key.name(bound[0]).upper() if bound else "?"
 
     def _create_panel_texture(self, lines: List[str]) -> pygame.Surface:

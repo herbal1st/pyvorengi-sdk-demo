@@ -2,9 +2,12 @@
 Core orchestrator for the Voxel Engine application.
 """
 
+import asyncio
+import random
 import sys
 from typing import Tuple
 
+import numpy as np
 import pygame
 
 from camera.camera import Camera
@@ -35,7 +38,10 @@ class VoxelEngine:
         """
         Initializes the engine subsystems and hardware context.
         """
-        pygame.init()
+        # Safety check to prevent double-initialization
+        if not pygame.get_init():
+            pygame.init()
+
         paths.check_environment()
 
         # Core hardware and state components
@@ -49,9 +55,6 @@ class VoxelEngine:
         self.camera: Camera = Camera()
         self.atmosphere: AtmosphereManager = AtmosphereManager()
         
-        # Initialize building state variables
-        self.current_build_id: int = settings.DEFAULT_BLOCK_ID
-
         # Player and visual pipeline
         self.player: Entity = self._init_player()
         self.renderer: Renderer = Renderer(
@@ -64,7 +67,7 @@ class VoxelEngine:
         self._bootstrap_session()
         self._sync_hardware_state()
 
-    def run(self) -> None:
+    async def run(self) -> None:
         """
         Main execution loop driving input, physics, and rendering.
         """
@@ -77,6 +80,9 @@ class VoxelEngine:
 
             self._process_render_frame(self.clock.alpha)
             pygame.display.flip()
+            
+            # Non-blocking yield for the browser event loop
+            await asyncio.sleep(0)
 
         self._shutdown()
 
@@ -91,21 +97,89 @@ class VoxelEngine:
         self.renderer.update_screen_reference(surf)
         self.ui.update_screen_reference(surf)
 
-    def cycle_build_block(self, direction: int) -> None:
+    def regenerate_world(self) -> None:
         """
-        Cycles the active buildable block ID smoothly with wrapping.
+        Clears the active world and spawns a new procedural landscape.
         """
-        buildable_ids = self.world.registry.get_registered_ids()
-        if not buildable_ids:
-            return
+        # Assign a random seed
+        settings.WORLD_SEED = random.randint(1, 999999)
+        
+        # Force the global generator module to rebuild its noise instance
+        import map.generator as generator
+        generator.reinit_noise_generator()
+        
+        # Clear active cache and rebuild everything around the spawn
+        self.world.chunks.clear()
+        self._bootstrap_session()
 
-        try:
-            idx = buildable_ids.index(self.current_build_id)
-        except ValueError:
-            idx = 0
+    def cycle_noise_algorithm(self) -> None:
+        """
+        Toggles between Perlin and Simplex generation models.
+        """
+        if settings.ACTIVE_NOISE_TYPE == settings.NOISE_TYPE_PERLIN:
+            settings.ACTIVE_NOISE_TYPE = settings.NOISE_TYPE_SIMPLEX
+        else:
+            settings.ACTIVE_NOISE_TYPE = settings.NOISE_TYPE_PERLIN
+            
+        import map.generator as generator
+        generator.reinit_noise_generator()
+        
+        self.world.chunks.clear()
+        self._bootstrap_session()
 
-        new_idx = (idx + direction) % len(buildable_ids)
-        self.current_build_id = buildable_ids[new_idx]
+    def cycle_haze_height(self) -> None:
+        """
+        Cycles through valley haze height presets.
+        """
+        heights = [0.0, 5.0, 9.0, 15.0, 22.0]
+        curr = self.atmosphere.h_fog_max_z
+        next_idx = 0
+        for i, h in enumerate(heights):
+            if abs(curr - h) < 0.1:
+                next_idx = (i + 1) % len(heights)
+                break
+        self.atmosphere.h_fog_max_z = heights[next_idx]
+        self.atmosphere.needs_remesh = True
+
+    def cycle_fog_density(self) -> None:
+        """
+        Cycles through distance fog density values.
+        """
+        densities = [0.0, 0.3, 0.7, 1.2, 2.0]
+        curr = self.atmosphere.fog_density
+        next_idx = 0
+        for i, d in enumerate(densities):
+            if abs(curr - d) < 0.1:
+                next_idx = (i + 1) % len(densities)
+                break
+        self.atmosphere.fog_density = densities[next_idx]
+        self.atmosphere.needs_remesh = True
+
+    def cycle_sky_color(self) -> None:
+        """
+        Cycles through background sky color presets.
+        """
+        colors = [
+            (20, 195, 230),  # Classic cyan
+            (10, 20, 40),    # Midnight dark blue
+            (240, 140, 80),  # Sunset orange
+            (120, 160, 140), # Misty sage
+        ]
+        curr = settings.SKY_COLOR
+        next_idx = 0
+        for i, c in enumerate(colors):
+            if curr == c:
+                next_idx = (i + 1) % len(colors)
+                break
+        new_color = colors[next_idx]
+        
+        # Update both settings and the module-level array in visuals
+        import settings.settings as settings_mod
+        settings_mod.SKY_COLOR = new_color
+        
+        import renderer.visuals as visuals
+        visuals.SKY_RGB = np.array(new_color, dtype=np.float32)
+        self.atmosphere.needs_remesh = True
 
     def _update_physics_logic(self) -> None:
         """
@@ -148,8 +222,7 @@ class VoxelEngine:
             clock_ref=self.clock,
             active_faces=face_count,
             visible_sections=len(self.renderer.scene.last_v_count),
-            total_sections=self._cached_t_sec,
-            current_build_id=self.current_build_id
+            total_sections=self._cached_t_sec
         )
 
         self.lifecycle.manage_updates(self.player, self.camera, self.renderer)
@@ -199,12 +272,6 @@ class VoxelEngine:
         self._place_player_at_spawn()
         self.atmosphere.sync_from_manifest(self.session.metadata)
         
-        # Disable volumetric overlays/darkening automatically for inspection maps
-        if not settings.USE_PROCEDURAL:
-            self.atmosphere.h_fog_max_z = 0.0
-            self.atmosphere.h_fog_dens = 0.0
-            self.atmosphere.height_shading_factor = 0.0
-
         boot = WorldBootstrapper(
             self.world, self.lifecycle, self.player, self.renderer
         )

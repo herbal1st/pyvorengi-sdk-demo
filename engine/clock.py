@@ -2,6 +2,8 @@
 Manages game timing, fixed-timestep accumulation, and frame interpolation.
 """
 
+from __future__ import annotations
+
 from typing import Tuple
 import pygame
 

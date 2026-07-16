@@ -23,20 +23,12 @@ def get_save_path(world_id: str) -> Path:
     return PROJECT_ROOT / "saves" / world_id
 
 
-def get_map_path(filename: str) -> Path:
-    """
-    Returns the absolute path to a static map file.
-    """
-    return PROJECT_ROOT / "map" / "maps" / filename
-
-
 def check_environment() -> None:
     """
     Validates and creates critical engine folder structures if missing.
     """
     required_dirs: list[Path] = [
         PROJECT_ROOT / "data",
-        PROJECT_ROOT / "map/maps",
         PROJECT_ROOT / "saves",
     ]
 

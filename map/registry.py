@@ -1,17 +1,16 @@
 """
-Voxel registry for block properties and YAML definitions.
+Voxel registry for block properties and JSON definitions.
 """
 
+import json
 from pathlib import Path
-from typing import Any, Dict, Final, Optional, Tuple, List
+from typing import Any, Dict, Final, Optional, Tuple
 
 import numpy as np
-import yaml
 from numpy.typing import NDArray
 
 from utils.paths import get_data_path
 
-# --- Constants & Mapping ---
 # Normal to semantic face name mapping
 _FACE_MAP: Final[Dict[Tuple[int, int, int], str]] = {
     (0, 0, 1): "top",
@@ -51,7 +50,7 @@ class VoxelRegistry:
         Initializes the registry and loads definitions from disk.
         """
         # Path to the block definition file
-        self.path: Path = get_data_path("voxels.yaml")
+        self.path: Path = get_data_path("voxels.json")
         
         # Internal cache for block properties
         self._cache: Dict[int, Dict[str, Any]] = {}
@@ -63,7 +62,7 @@ class VoxelRegistry:
         normal: Tuple[int, int, int]
     ) -> NDArray[np.uint8]:
         """
-        Generates a NumPy lookup table (LUT) for block colors on a specific face.
+        Generates a NumPy lookup table (LUT) for block colors on a face.
         """
         # Create a palette for all possible 256 block IDs
         palette: NDArray[np.uint8] = np.zeros((256, 3), dtype=np.uint8)
@@ -123,31 +122,17 @@ class VoxelRegistry:
         """
         return self._cache.get(b_id, {}).get("is_spawn", False)
 
-    def get_registered_ids(self) -> List[int]:
-        """
-        Returns a sorted list of all buildable solid block IDs.
-        """
-        return sorted([
-            b_id for b_id, props in self._cache.items()
-            if b_id != 0 and not props.get("is_spawn", False)
-        ])
-
     def _load_definitions(self) -> None:
         """
-        Parses YAML block definitions and populates the cache.
+        Parses JSON block definitions and populates the cache.
         """
-        # Fallback to .yaml.txt if .yaml is missing
-        target: Path = self.path
-        if not target.exists():
-            target = self.path.with_suffix(".yaml.txt")
-
         # Guard: File not found
-        if not target.exists():
+        if not self.path.exists():
             return
 
         try:
-            with open(target, "r", encoding="utf-8") as file:
-                raw_data: Dict[str, Any] = yaml.safe_load(file) or {}
+            with open(self.path, "r", encoding="utf-8") as file:
+                raw_data: Dict[str, Any] = json.load(file) or {}
                 blocks: list = raw_data.get("blocks", [])
                 
                 # Map block data by their integer IDs
@@ -155,4 +140,4 @@ class VoxelRegistry:
                     b["id"]: b for b in blocks if "id" in b
                 }
         except Exception as error:
-            print(f"[Registry] YAML Error: {error}")
+            print(f"[Registry] JSON Error: {error}")

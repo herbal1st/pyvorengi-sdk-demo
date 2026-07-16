@@ -2,6 +2,8 @@
 Optimized geometry batcher using in-place vertex transformations.
 """
 
+from __future__ import annotations
+
 from typing import Any, List, Tuple, Optional, Final
 
 import pygame

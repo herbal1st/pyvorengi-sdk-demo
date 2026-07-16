@@ -11,7 +11,7 @@ HEADER_PREFIX: Final[str] = "v_"  # string
 FORCE_FRESH_WORLD: Final[bool] = True  # bool
 
 # ------ Hardware & Display ------
-SCREEN_RES: Final[Tuple[int, int]] = (1280, 800)  # pixels
+SCREEN_RES: Final[Tuple[int, int]] = (1024, 576)  # pixels
 START_FULLSCREEN: Final[bool] = False  # bool
 FPS: Final[int] = 30  # hertz
 FOV: Final[int] = 600  # ratio
@@ -19,7 +19,7 @@ WINDOW_ICON_NAME: Final[str] = "icon.png"  # filename
 
 # ------ Raycasting & Interaction ------
 RAYCAST_DIST: Final[float] = 8.0  # blocks
-DEFAULT_BLOCK_ID: Final[int] = 3  # id
+ACTIVE_BLOCK_ID: int = 3  # id
 
 # ------ User Interface ------
 UI_BG_ALPHA: Final[int] = 180  # opacity
@@ -37,7 +37,7 @@ ALTITUDE_THROTTLE_FACTOR: Final[float] = 0.85  # scale
 # ------ Physics & Movement ------
 MOVE_SPEED: Final[float] = 0.075  # blocks
 VERTICAL_MOVE_COOLDOWN: Final[int] = 50  # ms
-MOUSE_SENSITIVITY: Final[float] = 0.003  # scale
+MOUSE_SENSITIVITY: Final[float] = 0.001  # scale
 PITCH_LIMIT: Final[float] = 1.5  # radians
 PLAYER_HEIGHT: Final[float] = 1.75  # blocks
 COLLISION_RADIUS: Final[float] = 0.3  # blocks
@@ -59,20 +59,12 @@ ANGULAR_BUFFER_DEG: Final[float] = 5.0  # degrees
 ANGULAR_BUFFER_RAD: float = 0.087  # radians
 
 # ------ Terrain Generation ------
-USE_PROCEDURAL: bool = True  # bool
-GLOBAL_MAP_NAME: Final[str] = "default_map.npz"  # string
 WORLD_SEED: int = 420  # seed
 NOISE_TYPE_PERLIN: Final[str] = "PERLIN"  # type
 NOISE_TYPE_SIMPLEX: Final[str] = "SIMPLEX"  # type
 ACTIVE_NOISE_TYPE: str = NOISE_TYPE_PERLIN  # type
 NOISE_SCALE: float = 50.0  # scale
 MAX_TERRAIN_HEIGHT_RATIO: Final[float] = 0.95  # ratio
-
-# ------ Sky Islands (Procedural Post-Processing) ------
-SKY_ISLANDS_ON: bool = False  # bool
-SKY_ISLAND_MIRROR_HEIGHT: int = 11  # blocks
-SKY_ISLAND_BOTTOM_FILL_ID: int = 3  # id
-SPAWN_SAFETY_PAD_SIZE: int = 3  # blocks
 
 # ------ Lighting & Shading ------
 SKY_COLOR: Final[Tuple[int, int, int]] = (20, 195, 230)  # rgb

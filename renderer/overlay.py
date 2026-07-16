@@ -2,6 +2,8 @@
 Handles 2D full-screen atmospheric post-processing overlays.
 """
 
+from __future__ import annotations
+
 import pygame
 
 import settings.settings as settings
