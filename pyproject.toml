@@ -19,9 +19,14 @@ classifiers = [
     "Topic :: Games/Entertainment :: Side-Scrolling/3D",
 ]
 dependencies = [
-    "pygame>=2.0.0",
+    "pygame-ce>=2.0.0",
     "numpy>=1.20.0",
+    "pyyaml"
 ]
 
 [project.urls]
 Homepage = "https://github.com/herbal1st/pyvorengi-sdk-demo"
+
+[tool.pygodide]
+canvas-width=1024
+canvas-height=576
