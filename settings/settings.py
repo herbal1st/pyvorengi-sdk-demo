@@ -13,7 +13,7 @@ FORCE_FRESH_WORLD: Final[bool] = True  # bool
 # ------ Hardware & Display ------
 SCREEN_RES: Final[Tuple[int, int]] = (1024, 576)  # pixels
 START_FULLSCREEN: Final[bool] = False  # bool
-FPS: Final[int] = 30  # hertz
+FPS: Final[int] = 120  # hertz
 FOV: Final[int] = 600  # ratio
 WINDOW_ICON_NAME: Final[str] = "icon.png"  # filename
 

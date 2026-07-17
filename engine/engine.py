@@ -82,7 +82,7 @@ class VoxelEngine:
             pygame.display.flip()
             
             # Non-blocking yield for the browser event loop
-            await asyncio.sleep(0)
+            await asyncio.sleep(1 / (settings.FPS * 2))
 
         self._shutdown()
 
