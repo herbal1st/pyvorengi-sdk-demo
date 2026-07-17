@@ -30,3 +30,4 @@ Homepage = "https://github.com/herbal1st/pyvorengi-sdk-demo"
 [tool.pygodide]
 canvas-width=1024
 canvas-height=576
+canvas-fit=true
