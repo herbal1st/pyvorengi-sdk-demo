@@ -1,0 +1,1596 @@
+assets:
+  enemy/laser beam/laser beam 01.png:
+    render_3d: false   # bool
+    scale: 1.0         # scale
+    thickness: 0.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: null     # blocks
+
+  enemy/laser beam/laser beam 02.png:
+    render_3d: false   # bool
+    scale: 1.0         # scale
+    thickness: 0.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: null     # blocks
+
+  enemy/laser beam/laser beam 03.png:
+    render_3d: false   # bool
+    scale: 1.0         # scale
+    thickness: 0.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: null     # blocks
+
+  enemy/laser beam/laser beam 04.png:
+    render_3d: false   # bool
+    scale: 1.0         # scale
+    thickness: 0.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: null     # blocks
+
+  enemy/laser beam/laser beam 05.png:
+    render_3d: false   # bool
+    scale: 1.0         # scale
+    thickness: 0.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: null     # blocks
+
+  enemy/laser beam/laser beam 06.png:
+    render_3d: false   # bool
+    scale: 1.0         # scale
+    thickness: 0.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: null     # blocks
+
+  enemy/laser gun/laser gun 01.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 6.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: 2.0      # blocks
+
+  enemy/laser gun/laser gun 02.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 6.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: 2.0      # blocks
+
+  enemy/laser gun/laser gun 03.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 6.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: 2.0      # blocks
+
+  enemy/laser gun/laser gun 04.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 6.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: 2.0      # blocks
+
+  enemy/laser gun/laser gun 05.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 6.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: 2.0      # blocks
+
+  enemy/laser gun/laser gun 06.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 6.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: 2.0      # blocks
+
+  enemy/laser gun/laser gun 07.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 6.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: 2.0      # blocks
+
+  enemy/laser gun/laser gun 08.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 6.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: 2.0      # blocks
+
+  enemy/laser gun/laser gun 09.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 6.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: 2.0      # blocks
+
+  enemy/laser gun/laser gun 10.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 6.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: 2.0      # blocks
+
+  enemy/laser gun/laser gun 11.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 6.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: 2.0      # blocks
+
+  enemy/laser gun/laser gun 12.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 6.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: 2.0      # blocks
+
+  enemy/laser gun/laser gun 13.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 6.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: 2.0      # blocks
+
+  enemy/laser gun/laser gun 14.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 6.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: 2.0      # blocks
+
+  enemy/laser gun/laser gun 15.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 6.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: 2.0      # blocks
+
+  enemy/laser gun/laser gun 16.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 6.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: 2.0      # blocks
+
+  enemy/laser gun/laser gun 17.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 6.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: 2.0      # blocks
+
+  enemy/laser gun/laser gun 18.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 6.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: 2.0      # blocks
+
+  enemy/laser gun/laser gun 19.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 6.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: 2.0      # blocks
+
+  enemy/laser gun/laser gun 20.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 6.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: 2.0      # blocks
+
+  enemy/lights/ufo lights 01.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 2.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: null     # blocks
+
+  enemy/lights/ufo lights 02.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 2.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: null     # blocks
+
+  enemy/lights/ufo lights 03.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 2.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: null     # blocks
+
+  enemy/lights/ufo lights 04.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 2.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: null     # blocks
+
+  enemy/lights/ufo lights 05.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 2.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: null     # blocks
+
+  enemy/lights/ufo lights 06.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 2.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: null     # blocks
+
+  enemy/lights/ufo lights 07.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 2.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: null     # blocks
+
+  enemy/lights/ufo lights 08.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 2.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: null     # blocks
+
+  enemy/lights/ufo lights 09.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 2.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: null     # blocks
+
+  enemy/lights/ufo lights 10.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 2.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: null     # blocks
+
+  enemy/lights/ufo lights 11.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 2.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: null     # blocks
+
+  enemy/lights/ufo lights 12.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 2.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: null     # blocks
+
+  enemy/lights/ufo lights 13.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 2.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: null     # blocks
+
+  enemy/lights/ufo lights 14.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 2.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: null     # blocks
+
+  enemy/lights/ufo lights 15.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 2.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: null     # blocks
+
+  enemy/lights/ufo lights 16.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 2.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: null     # blocks
+
+  enemy/lights/ufo lights 17.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 2.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: null     # blocks
+
+  enemy/lights/ufo lights 18.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 2.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: null     # blocks
+
+  enemy/ufo 33x33.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 8.0     # layers
+    tilt_agility: 3.0  # agility
+    tilt_factor: 42.0  # degrees
+    z_offset: null     # blocks
+
+  obstacles/rock/rock 00.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 14.0    # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 36.0  # degrees
+    z_offset: -2.0     # blocks
+
+  obstacles/rock/rock 01.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 14.0    # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 36.0  # degrees
+    z_offset: -2.0     # blocks
+
+  obstacles/rock/rock 02.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 14.0    # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 36.0  # degrees
+    z_offset: -2.0     # blocks
+
+  obstacles/rock/rock 03.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 14.0    # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 36.0  # degrees
+    z_offset: -2.0     # blocks
+
+  obstacles/rock/rock 04.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 14.0    # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 36.0  # degrees
+    z_offset: -2.0     # blocks
+
+  obstacles/rock/rock 05.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 14.0    # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 36.0  # degrees
+    z_offset: -2.0     # blocks
+
+  obstacles/rock/rock 06.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 14.0    # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 36.0  # degrees
+    z_offset: -2.0     # blocks
+
+  obstacles/rock/rock 07.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 14.0    # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 36.0  # degrees
+    z_offset: -2.0     # blocks
+
+  obstacles/rock/rock 08.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 14.0    # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 36.0  # degrees
+    z_offset: -2.0     # blocks
+
+  obstacles/rock/rock 09.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 14.0    # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 36.0  # degrees
+    z_offset: -2.0     # blocks
+
+  obstacles/rock/rock 10.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 14.0    # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 36.0  # degrees
+    z_offset: -2.0     # blocks
+
+  obstacles/rock/rock 11.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 14.0    # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 36.0  # degrees
+    z_offset: -2.0     # blocks
+
+  obstacles/rock/rock 12.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 14.0    # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 36.0  # degrees
+    z_offset: -2.0     # blocks
+
+  obstacles/rock/rock 13.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 14.0    # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 36.0  # degrees
+    z_offset: -2.0     # blocks
+
+  obstacles/rock/rock 14.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 14.0    # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 36.0  # degrees
+    z_offset: -2.0     # blocks
+
+  obstacles/rock/rock 15.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 14.0    # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 36.0  # degrees
+    z_offset: -2.0     # blocks
+
+  obstacles/rock/rock 16.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 14.0    # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 36.0  # degrees
+    z_offset: -2.0     # blocks
+
+  obstacles/rock/rock 17.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 14.0    # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 36.0  # degrees
+    z_offset: -2.0     # blocks
+
+  obstacles/rock/rock 18.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 14.0    # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 36.0  # degrees
+    z_offset: -2.0     # blocks
+
+  obstacles/rock/rock 19.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 14.0    # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 36.0  # degrees
+    z_offset: -2.0     # blocks
+
+  obstacles/rock/rock 20.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 14.0    # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 36.0  # degrees
+    z_offset: -2.0     # blocks
+
+  obstacles/rock/rock 21.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 14.0    # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 36.0  # degrees
+    z_offset: -2.0     # blocks
+
+  obstacles/rock/rock 22.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 14.0    # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 36.0  # degrees
+    z_offset: -2.0     # blocks
+
+  obstacles/rock/rock 23.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 14.0    # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 36.0  # degrees
+    z_offset: -2.0     # blocks
+
+  obstacles/rock/rock 24.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 14.0    # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 36.0  # degrees
+    z_offset: -2.0     # blocks
+
+  obstacles/rock/rock 25.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 14.0    # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 36.0  # degrees
+    z_offset: -2.0     # blocks
+
+  obstacles/rock/rock 26.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 14.0    # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 36.0  # degrees
+    z_offset: -2.0     # blocks
+
+  obstacles/rock/rock 27.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 14.0    # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 36.0  # degrees
+    z_offset: -2.0     # blocks
+
+  obstacles/rock/rock 28.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 14.0    # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 36.0  # degrees
+    z_offset: -2.0     # blocks
+
+  obstacles/rock/rock 29.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 14.0    # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 36.0  # degrees
+    z_offset: -2.0     # blocks
+
+  obstacles/rock/rock 30.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 14.0    # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 36.0  # degrees
+    z_offset: -2.0     # blocks
+
+  obstacles/rock/rock 31.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 14.0    # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 36.0  # degrees
+    z_offset: -2.0     # blocks
+
+  obstacles/rock/rock 32.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 14.0    # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 36.0  # degrees
+    z_offset: -2.0     # blocks
+
+  obstacles/rock/rock 33.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 14.0    # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 36.0  # degrees
+    z_offset: -2.0     # blocks
+
+  obstacles/rock/rock 34.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 14.0    # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 36.0  # degrees
+    z_offset: -2.0     # blocks
+
+  obstacles/rock/rock 35.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 14.0    # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 36.0  # degrees
+    z_offset: -2.0     # blocks
+
+  obstacles/rock/rock 36.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 14.0    # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 36.0  # degrees
+    z_offset: -2.0     # blocks
+
+  obstacles/rock/rock 37.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 14.0    # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 36.0  # degrees
+    z_offset: -2.0     # blocks
+
+  obstacles/rock/rock 38.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 14.0    # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 36.0  # degrees
+    z_offset: -2.0     # blocks
+
+  obstacles/rock/rock 39.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 14.0    # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 36.0  # degrees
+    z_offset: -2.0     # blocks
+
+  obstacles/rock/rock 40.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 14.0    # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 36.0  # degrees
+    z_offset: -2.0     # blocks
+
+  obstacles/rock/rock 41.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 14.0    # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 36.0  # degrees
+    z_offset: -2.0     # blocks
+
+  obstacles/rock/rock 42.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 14.0    # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 36.0  # degrees
+    z_offset: -2.0     # blocks
+
+  obstacles/rock/rock 43.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 14.0    # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 36.0  # degrees
+    z_offset: -2.0     # blocks
+
+  obstacles/rock/rock 44.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 14.0    # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 36.0  # degrees
+    z_offset: -2.0     # blocks
+
+  obstacles/rock/rock 45.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 14.0    # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 36.0  # degrees
+    z_offset: -2.0     # blocks
+
+  obstacles/rock/rock 46.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 14.0    # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 36.0  # degrees
+    z_offset: -2.0     # blocks
+
+  obstacles/rock/rock 47.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 14.0    # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 36.0  # degrees
+    z_offset: -2.0     # blocks
+
+  obstacles/rock/rock 48.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 14.0    # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 36.0  # degrees
+    z_offset: -2.0     # blocks
+
+  obstacles/rock/rock 49.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 14.0    # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 36.0  # degrees
+    z_offset: -2.0     # blocks
+
+  obstacles/rock/rock 50.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 14.0    # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 36.0  # degrees
+    z_offset: -2.0     # blocks
+
+  obstacles/rock/rock 51.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 14.0    # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 36.0  # degrees
+    z_offset: -2.0     # blocks
+
+  obstacles/rock/rock 52.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 14.0    # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 36.0  # degrees
+    z_offset: -2.0     # blocks
+
+  obstacles/rock/rock 53.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 14.0    # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 36.0  # degrees
+    z_offset: -2.0     # blocks
+
+  obstacles/rock/rock 54.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 14.0    # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 36.0  # degrees
+    z_offset: -2.0     # blocks
+
+  obstacles/rock/rock 55.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 14.0    # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 36.0  # degrees
+    z_offset: -2.0     # blocks
+
+  obstacles/rock/rock 56.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 14.0    # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 36.0  # degrees
+    z_offset: -2.0     # blocks
+
+  obstacles/rock/rock 57.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 14.0    # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 36.0  # degrees
+    z_offset: -2.0     # blocks
+
+  obstacles/rock/rock 58.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 14.0    # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 36.0  # degrees
+    z_offset: -2.0     # blocks
+
+  obstacles/rock/rock 59.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 14.0    # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 36.0  # degrees
+    z_offset: -2.0     # blocks
+
+  obstacles/rock/rock 60.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 14.0    # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 36.0  # degrees
+    z_offset: -2.0     # blocks
+
+  obstacles/rock/rock 61.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 14.0    # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 36.0  # degrees
+    z_offset: -2.0     # blocks
+
+  obstacles/rock/rock 62.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 14.0    # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 36.0  # degrees
+    z_offset: -2.0     # blocks
+
+  obstacles/rock/rock 63.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 14.0    # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 36.0  # degrees
+    z_offset: -2.0     # blocks
+
+  obstacles/rock/rock 64.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 14.0    # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 36.0  # degrees
+    z_offset: -2.0     # blocks
+
+  obstacles/rock/rock 65.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 14.0    # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 36.0  # degrees
+    z_offset: -2.0     # blocks
+
+  obstacles/rock/rock 66.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 14.0    # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 36.0  # degrees
+    z_offset: -2.0     # blocks
+
+  obstacles/rock/rock 67.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 14.0    # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 36.0  # degrees
+    z_offset: -2.0     # blocks
+
+  obstacles/rock/rock 68.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 14.0    # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 36.0  # degrees
+    z_offset: -2.0     # blocks
+
+  obstacles/rock/rock 69.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 14.0    # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 36.0  # degrees
+    z_offset: -2.0     # blocks
+
+  obstacles/rock/rock 70.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 14.0    # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 36.0  # degrees
+    z_offset: -2.0     # blocks
+
+  obstacles/rock/rock 71.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 14.0    # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 36.0  # degrees
+    z_offset: -2.0     # blocks
+
+  obstacles/rock/rock 72.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 14.0    # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 36.0  # degrees
+    z_offset: -2.0     # blocks
+
+  ship/exhaust/exhaust 01.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 4.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: 6.0      # blocks
+
+  ship/exhaust/exhaust 02.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 4.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: 6.0      # blocks
+
+  ship/exhaust/exhaust 03.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 4.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: 6.0      # blocks
+
+  ship/exhaust/exhaust 04.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 4.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: 6.0      # blocks
+
+  ship/exhaust/exhaust 05.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 4.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: 6.0      # blocks
+
+  ship/exhaust/exhaust 06.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 4.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: 6.0      # blocks
+
+  ship/exhaust/exhaust 07.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 4.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: 6.0      # blocks
+
+  ship/exhaust/exhaust 08.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 4.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: 6.0      # blocks
+
+  ship/exhaust/exhaust 09.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 4.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: 6.0      # blocks
+
+  ship/exhaust/exhaust 10.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 4.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: 6.0      # blocks
+
+  ship/exhaust/exhaust 11.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 4.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: 6.0      # blocks
+
+  ship/exhaust/exhaust 12.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 4.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: 6.0      # blocks
+
+  ship/laser beam/laser beam 1.png:
+    render_3d: false   # bool
+    scale: 1.0         # scale
+    thickness: 0.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: null     # blocks
+
+  ship/laser beam/laser beam 2.png:
+    render_3d: false   # bool
+    scale: 1.0         # scale
+    thickness: 0.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: null     # blocks
+
+  ship/laser beam/laser beam 3.png:
+    render_3d: false   # bool
+    scale: 1.0         # scale
+    thickness: 0.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: null     # blocks
+
+  ship/laser beam/laser beam 4.png:
+    render_3d: false   # bool
+    scale: 1.0         # scale
+    thickness: 0.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: null     # blocks
+
+  ship/laser beam/laser beam 5.png:
+    render_3d: false   # bool
+    scale: 1.0         # scale
+    thickness: 0.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: null     # blocks
+
+  ship/laser beam/laser beam 6.png:
+    render_3d: false   # bool
+    scale: 1.0         # scale
+    thickness: 0.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: null     # blocks
+
+  ship/laser beam/laser beam 7.png:
+    render_3d: false   # bool
+    scale: 1.0         # scale
+    thickness: 0.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: null     # blocks
+
+  ship/laser beam/laser beam 8.png:
+    render_3d: false   # bool
+    scale: 1.0         # scale
+    thickness: 0.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: null     # blocks
+
+  ship/laser gun/laser gun 01.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 6.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: 4.0      # blocks
+
+  ship/laser gun/laser gun 02.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 6.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: 4.0      # blocks
+
+  ship/laser gun/laser gun 03.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 6.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: 4.0      # blocks
+
+  ship/laser gun/laser gun 04.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 6.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: 4.0      # blocks
+
+  ship/laser gun/laser gun 05.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 6.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: 4.0      # blocks
+
+  ship/laser gun/laser gun 06.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 6.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: 4.0      # blocks
+
+  ship/laser gun/laser gun 07.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 6.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: 4.0      # blocks
+
+  ship/laser gun/laser gun 08.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 6.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: 4.0      # blocks
+
+  ship/laser gun/laser gun 09.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 6.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: 4.0      # blocks
+
+  ship/laser gun/laser gun 10.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 6.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: 4.0      # blocks
+
+  ship/laser gun/laser gun 11.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 6.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: 4.0      # blocks
+
+  ship/laser gun/laser gun 12.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 6.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: 4.0      # blocks
+
+  ship/laser gun/laser gun 13.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 6.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: 4.0      # blocks
+
+  ship/laser gun/laser gun 14.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 6.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: 4.0      # blocks
+
+  ship/laser gun/laser gun 15.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 6.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: 4.0      # blocks
+
+  ship/laser gun/laser gun 16.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 6.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: 4.0      # blocks
+
+  ship/laser gun/laser gun 17.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 6.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: 4.0      # blocks
+
+  ship/lights/lights 01.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 0.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: null     # blocks
+
+  ship/lights/lights 02.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 0.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: null     # blocks
+
+  ship/lights/lights 03.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 0.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: null     # blocks
+
+  ship/lights/lights 04.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 0.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: null     # blocks
+
+  ship/lights/lights 05.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 0.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: null     # blocks
+
+  ship/lights/lights 06.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 0.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: null     # blocks
+
+  ship/lights/lights 07.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 0.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: null     # blocks
+
+  ship/lights/lights 08.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 0.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: null     # blocks
+
+  ship/lights/lights 09.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 0.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: null     # blocks
+
+  ship/lights/lights 10.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 0.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: null     # blocks
+
+  ship/lights/lights 11.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 0.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: null     # blocks
+
+  ship/lights/lights 12.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 0.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: null     # blocks
+
+  ship/lights/lights 13.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 0.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: null     # blocks
+
+  ship/lights/lights 14.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 0.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: null     # blocks
+
+  ship/lights/lights 15.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 0.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: null     # blocks
+
+  ship/lights/lights 16.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 0.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: null     # blocks
+
+  ship/lights/lights 17.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 0.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: null     # blocks
+
+  ship/lights/lights 18.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 0.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: null     # blocks
+
+  ship/lights/lights 19.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 0.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: null     # blocks
+
+  ship/lights/lights 20.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 0.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: null     # blocks
+
+  ship/lights/lights 21.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 0.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: null     # blocks
+
+  ship/lights/lights 22.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 0.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: null     # blocks
+
+  ship/lights/lights 23.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 0.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: null     # blocks
+
+  ship/lights/lights 24.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 0.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: null     # blocks
+
+  ship/lights/lights 25.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 0.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: null     # blocks
+
+  ship/lights/lights 26.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 0.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: null     # blocks
+
+  ship/lights/lights 27.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 0.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: null     # blocks
+
+  ship/lights/lights 28.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 0.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: null     # blocks
+
+  ship/lights/lights 29.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 0.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: null     # blocks
+
+  ship/lights/lights 30.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 0.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: null     # blocks
+
+  ship/lights/lights 31.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 0.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: null     # blocks
+
+  ship/lights/lights 32.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 0.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: null     # blocks
+
+  ship/shield/shield 01.png:
+    render_3d: false   # bool
+    scale: 2.0         # scale
+    thickness: 0.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: null     # blocks
+
+  ship/shield/shield 02.png:
+    render_3d: false   # bool
+    scale: 2.0         # scale
+    thickness: 0.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: null     # blocks
+
+  ship/shield/shield 03.png:
+    render_3d: false   # bool
+    scale: 2.0         # scale
+    thickness: 0.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: null     # blocks
+
+  ship/shield/shield 04.png:
+    render_3d: false   # bool
+    scale: 2.0         # scale
+    thickness: 0.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: null     # blocks
+
+  ship/shield/shield 05.png:
+    render_3d: false   # bool
+    scale: 2.0         # scale
+    thickness: 0.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: null     # blocks
+
+  ship/shield/shield 06.png:
+    render_3d: false   # bool
+    scale: 2.0         # scale
+    thickness: 0.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: null     # blocks
+
+  ship/shield/shield 07.png:
+    render_3d: false   # bool
+    scale: 2.0         # scale
+    thickness: 0.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: null     # blocks
+
+  ship/shield/shield 08.png:
+    render_3d: false   # bool
+    scale: 2.0         # scale
+    thickness: 0.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: null     # blocks
+
+  ship/shield/shield 09.png:
+    render_3d: false   # bool
+    scale: 2.0         # scale
+    thickness: 0.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: null     # blocks
+
+  ship/shield/shield 10.png:
+    render_3d: false   # bool
+    scale: 2.0         # scale
+    thickness: 0.0     # layers
+    tilt_agility: 1.0  # agility
+    tilt_factor: 0.0   # degrees
+    z_offset: null     # blocks
+
+  ship/ship 33x33.png:
+    render_3d: true    # bool
+    scale: 2.0         # scale
+    thickness: 10.0    # layers
+    tilt_agility: 4.2  # agility
+    tilt_factor: 50.0  # degrees
+    z_offset: null     # blocks
+
+# ============================================================================
+# ASSETS CONFIGURATION LEGEND
+# ============================================================================
+# render_3d    : Toggle 3D voxel interception and drawing (bool).
+# scale        : Resizing scale multiplier applied to the 3D model (scale).
+# thickness    : Number of vertical 3D layers to composite (layers).
+# tilt_factor  : Maximum lateral banking roll limit in degrees (degrees).
+# tilt_agility : Responsiveness and bank acceleration rate (multiplier).
+# z_offset     : Vertical offset relative to pivot. If null, uses
+#                automatic semantic defaults from settings (blocks).
+# ============================================================================

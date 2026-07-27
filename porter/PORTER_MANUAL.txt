@@ -1,0 +1,82 @@
+```text
+ ____               __                   
+/\  _`\            /\ \__                
+\ \ \L\ \___   _ __\ \ ,_\    __   _ __  
+ \ \ ,__/ __`\/\`'__\ \ \/  /'__`\/\`'__\
+  \ \ \/\ \L\ \ \ \/ \ \ \_/\  __/\ \ \/ 
+   \ \_\ \____/\ \_\  \ \__\ \____\\ \_\ 
+    \/_/\/___/  \/_/   \/__/\/____/ \/_/ 
+                                                        
+===============================================================================
+                   PORTER PIPELINE - CONFIGURATION MANUAL
+===============================================================================
+
+[PORTER PIPELINE & DIRECTORY SCANNING SETTINGS]
+-------------------------------------------------------------------------------
+PORTER_SCAN_DIRS                : List of Strings. Whitelisted folder paths 
+                                  scanned recursively by the asset discovery 
+                                  script (autofill.py) to locate 2D sprite 
+                                  images (PNG/JPG).
+                                  Metric: folders.
+
+                                  Layman's Analogy: Think of this list like a 
+                                  set of directions given to a search dog. 
+                                  Instead of letting the dog search your entire 
+                                  computer (which is slow and inefficient), you 
+                                  point out a few specific rooms (sub-folders) 
+                                  to scan. The discovery utility walks through 
+                                  only these whitelisted paths, catalogs any 
+                                  new sprites it finds, and keeps your asset 
+                                  database updated.
+
+
+[CONFIGURATION METRICS REFERENCE]
+-------------------------------------------------------------------------------
+PORTER_SCAN_DIRS                : List of Strings. Whitelisted folder paths 
+                                  scanned recursively by the asset discovery 
+                                  script (autofill.py) to locate 2D sprite 
+                                  images (PNG/JPG).
+                                  Metric: folders.
+
+PORTER_Z_ATTACHMENT_OFFSET      : Float. Subtle vertical separation between 
+                                  composite layers to prevent Z-fighting.
+                                  Metric: blocks.
+
+PORTER_CAMERA_YAW               : Float. Initial yaw orientation angle of 
+                                  the camera.
+                                  Metric: radians.
+
+PORTER_CAMERA_PITCH             : Float. Looks straight down (-pi/2) to lock 
+                                  the view and neutralize perspective drift.
+                                  Metric: radians.
+
+PORTER_CAMERA_HEIGHT            : Float. Hardcoded focal height neutralizing 
+                                  perspective distortion to lock pixels 1:1.
+                                  Metric: blocks.
+
+PORTER_CAMERA_CENTER_X          : Float. Horizontal center focus coordinate 
+                                  for centering the view over the window.
+                                  Metric: blocks.
+
+PORTER_CAMERA_CENTER_Y          : Float. Vertical center focus coordinate 
+                                  for centering the view over the window.
+                                  Metric: blocks.
+
+PORTER_OVERLAY_KEYWORDS         : List of Strings. Keywords identifying 
+                                  assets to defer to the top overlay pass.
+                                  Metric: keywords.
+
+PORTER_PERSPECTIVE_PARALLAX_ON  : Boolean. Enables automated horizontal and 
+                                  vertical lens skewing near screen borders.
+                                  Metric: bool.
+
+PORTER_DEFER_RECT_DRAWS         : Boolean. Defers UI vector rectangles to 
+                                  render on top of active 3D geometries.
+                                  Metric: bool.
+
+PORTER_DEFER_LINE_DRAWS         : Boolean. Defers UI vector lines to render 
+                                  on top of active 3D geometries.
+                                  Metric: bool.
+
+===============================================================================
+Distributed under the MIT License. Copyright (c) 2026 herbal1st.

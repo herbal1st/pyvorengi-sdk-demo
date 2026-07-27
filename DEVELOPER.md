@@ -8,7 +8,7 @@ vectorized data pipelines of the PyVorengi Demo Engine.
 ## 1. About the Developer & AI-Assisted Workflow
 
 This engine was designed and built by a self-taught, non-degree indie hobbyist 
-developer over a focused 2-month R&D window. 
+developer. 
 
 While I do not hold a formal degree in mathematics or computer science, my 
 approach centers on systemic design, modular architecture, and rapid learning.

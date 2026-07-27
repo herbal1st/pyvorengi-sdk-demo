@@ -1,0 +1,1 @@
+"""Entity modules representing the logical game actors and assets."""

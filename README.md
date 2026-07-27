@@ -1,5 +1,5 @@
 ```text
-____           __  __                                             
+ ____           __  __                                             
 /\  _`\        /\ \/\ \                                      __    
 \ \ \L\ \__  __\ \ \ \ \    ___   _ __    __    ___      __ /\_\   
  \ \ ,__/\ \/\ \\ \ \ \ \  / __`\/\`'__\/'__`\/' _ `\  /'_ `\/\ \  
@@ -18,32 +18,39 @@ Prerequisites:
 Ensure Python 3.x is installed. Install required dependencies via pip:
 pip install pygame numpy pyyaml
 
-Launching the Engine:
-Execute the entry script from the project root:
+1. Core Voxel Engine (Main Sandbox)
+Launch the main sandbox world viewer:
 python run.py
+(By default, generates procedural terrain from a seed. Can be configured 
+to load static map archives by setting USE_PROCEDURAL = False in settings).
 
-Controls:
-  - Movement   : W/A/S/D or Arrow keys.
-  - Elevation  : E to fly upward, Q to fly downward.
-  - Interaction: LEFT CLICK to destroy blocks, RIGHT CLICK to place blocks.
-  - Selection  : 1 to cycle ID down, 3 to cycle ID up, 2 to reset to default.
-  - Toggle HUD : Key 0 toggles the diagnostic debug overlay.
-  - Aiming     : A static targeting cross (+) is rendered at the center of 
-                 the screen during play to assist with aiming.
+2. Sky Islands Addon (Procedural Modification)
+To enable floating procedural terrain, toggle settings in settings.py:
+- Set SKY_ISLANDS_ON = True
+- Launch via 'python run.py' to generate sky-islands with mirrored floors.
 
-Note: 1. Run map_maker.py to generate a block inspection walkway.
-      2. Run pic_to_voxel.py to batch-convert images from /pic_imports
-         into compressed voxel maps (.npz) within map/maps/.
-      3. In settings.py, set USE_PROCEDURAL = False and GLOBAL_MAP_NAME 
-         to your desired filename (e.g., "ship.npz") to load a static map.
-      4. To enable procedural Floating Sky Islands, set USE_PROCEDURAL = True
-         and SKY_ISLANDS_ON = True in settings.py.
-      (A pre-authored "default_map.npz" and demo pixel art images
-       inside /pic_imports are pre-installed for immediate testing)
+3. Porter Pipeline & Space Flight Game
+Launch the 3.5D hybrid space combat simulator:
+python space_flight/main.py
+(Note: This launches the game using the Porter Bridge, which intercepts 
+2D sprite draws and projects them dynamically as sorted 3D voxel models
+using the Engine as Renderer. 
+Further custom configurations, calibration details, and advanced asset 
+pipelines are fully documented in the 'porter/PORTER_README.txt' file.)
 
-Hint: The aesthetic sweet spot for voxel art is 16x16 to 128x128 pixels. 
-      Higher resolutions (256+) often lose the "chunky" voxel charm and 
-      will eventually degrade CPU-side rendering performance.
+4. Picture-to-Voxel Forge (Custom Maps)
+Convert flat 2D images (PNG/JPG/JPEG) to 3D voxel geometry:
+- Place images inside the 'pic_imports' directory.
+- Run: python pic_to_voxel.py
+- This compiles them into '.npz' voxel volumes saved inside 'map/maps/'.
+- Configure settings.py with GLOBAL_MAP_NAME = "your_image_name.npz" and
+  USE_PROCEDURAL = False to launch and explore your custom picture.
+
+5. Map Maker Walkway
+Generate a static physical walk-through grid of all registered voxels:
+python map_maker.py
+- Exports a block-palette matrix to 'map/maps/default_map.npz'.
+- Ideal for inspecting textures, normals, and colors side-by-side.
 
 
 [1.0 SYSTEM OVERVIEW]
@@ -116,6 +123,30 @@ Boundary Sync  : Modifying a block on a chunk's outer boundary automatically
                  flags neighbor chunks to be updated. When rebuilt, the meshing 
                  worker overlays adjacent chunk edits directly onto the halo 
                  margins, preventing visual seams or missing faces at borders.
+
+
+[2.5 THE PORTER BRIDGE (3.5D HYBRID PIPELINE)]
+-------------------------------------------------------------------------------
+Bridge System  : Decoupled 2D-to-3D adapter linking sprite draws to voxels.
+Scale Lock     : Sets a flat camera height (25.0) and look-down pitch 
+                 (-pi/2) to achieve a 1:1 pixel-to-block projection, 
+                 eliminating vertical and horizontal perspective drift.
+Winding Order  : Vertices are processed in standard index layout. The straight 
+                 downward projection automatically resolves camera and vertical 
+                 negation signs, keeping face normals fully intact.
+Culling Save   : Bottom voxel faces are completely skipped during load compilation 
+                 to cut mesh sizes by 45% and conserve processing budget.
+Lazy Cache     : Compiles NPZ boundaries once and caches them to protect the 
+                 runtime rendering thread from I/O pauses.
+
+[2.6 VOXEL COLOR PALETTE MAPPING]
+-------------------------------------------------------------------------------
+Color Matching: Both the offline picture-to-voxel compiler (pic_to_voxel.py)
+and the Porter sprite compiler (forge_assets.py) use a high-precision 
+Euclidean distance match in RGB space to map 2D image pixels to the closest 
+solid block color defined in the central engine block database (data/voxels.yaml).
+Because of this matching process, compiled 3D voxel textures may experience 
+subtle color adjustments to align with the active voxel registry.
 
 
 [3.0 ATMOSPHERIC & VOLUMETRIC FX]
@@ -208,5 +239,4 @@ Basis Alignment:
                                                                 └─► [ UI/Debug ]
 
 ===============================================================================
-
 Distributed under the MIT License. Copyright (c) 2025 herbal1st.
